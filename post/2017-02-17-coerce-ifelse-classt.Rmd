@@ -1,0 +1,37 @@
+---
+title: "Coercing the class of ifelse results"
+author: "Guanghua Wang"
+date: 2017-02-17T18:00:00
+category: ["R Learning Notes"]
+tag: ["R Dplyr", "R class"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+`base::ifelse` returns `NA` to the logical type `NA`. It makes data manipulation problematic when we generate a new variable by `ifelse` from the existing varialbes with `NA`s. The following example gives an idea how the class of `ifelse` resutls changes.
+
+```{r example}
+test_fn <- function(x){
+  ifelse(x > 0,
+         "Positive",
+         "Not positive")
+}
+class(test_fn(1))
+class(test_fn(NA))
+```
+
+To avoid this problem, we have two solutions:
+
+1. coerce the class explicitly
+2. Use `dplyr::if_else`
+```{r dplyr::if_else}
+test_fn2 <- function(x){
+  dplyr::if_else(x > 0,
+         "Positive",
+         "Not positive")
+}
+class(test_fn2(1))
+class(test_fn2(NA))
+```

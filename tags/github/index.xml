@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on Guanghua</title>
+    <link>/tags/github/index.xml</link>
+    <description>Recent content in Github on Guanghua</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
+    <atom:link href="/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Hosting pages on Github using Rmarkdown and Hugo</title>
+      <link>/post/2017-02-17-set-up-github-pages/</link>
+      <pubDate>Sat, 18 Feb 2017 20:50:00 +0000</pubDate>
+      
+      <guid>/post/2017-02-17-set-up-github-pages/</guid>
+      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
+
+
+
+&lt;!-- /BLOGDOWN-HEAD --&gt;
+
+&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;My personal website is created by R package &lt;code&gt;blogdown&lt;/code&gt; and &lt;code&gt;Hugo&lt;/code&gt;&lt;a href=&#34;#fn1&#34; class=&#34;footnoteRef&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; and is hosted on Github. This page summarise my steps to setup the site.&lt;/p&gt;
+&lt;div id=&#34;creating-github-repositories&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Creating github repositories&lt;/h1&gt;
+&lt;p&gt;Two respositories are needed for the site.&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;I create &lt;code&gt;blog_hugo&lt;/code&gt; to host Hugo’s content)&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;I create &lt;code&gt;&amp;lt;my-user-name&amp;gt;.github.io&lt;/code&gt; to host the public folder, which contains the static website.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;installing-blogdown-and-hugo&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Installing Blogdown and Hugo&lt;/h1&gt;
+&lt;div id=&#34;install-blogdown.&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Install &lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;blogdown&lt;/a&gt;.&lt;/h2&gt;
+&lt;p&gt;It is under heavy development when I write this blog.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# check devetolls
+if (!(&amp;quot;devtools&amp;quot; %in% installed.packages())) {
+  install.packages(&amp;quot;devtools&amp;quot;)
+}
+devtools::install_github(&amp;#39;rstudio/blogdown&amp;#39;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;install-hugo&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Install &lt;a href=&#34;https://gohugo.io/&#34;&gt;Hugo&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;As I use Deepin Linux, a debain-based distro, I install &lt;code&gt;Hugo&lt;/code&gt; via &lt;code&gt;apt&lt;/code&gt; package manager. For other installment choices, read the &lt;a href=&#34;https://gohugo.io/overview/installing/&#34;&gt;Hugo installation instructions&lt;/a&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sudo apt install hugo&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;However, the Hugo in the repository is updated and it does not work for most templates. I manually download its deb package from &lt;a href=&#34;https://github.com/spf13/hugo/releases&#34;&gt;the release page&lt;/a&gt; and install it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-the-site&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Creating the Site&lt;/h1&gt;
+&lt;div id=&#34;creating-a-rproject-of-my-new-site&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Creating a Rproject of my new site&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Clone &lt;code&gt;blog_hugo&lt;/code&gt; to my computer&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd &amp;lt;parent-folder-of-blog_hugo&amp;gt;
+git clone &amp;lt;my-blog-hugo-repository&amp;gt; &amp;amp;&amp;amp; cd blog_hugo&lt;/code&gt;&lt;/pre&gt;
+&lt;ol start=&#34;2&#34; style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Create a Rproject based on the existing folder &lt;code&gt;blog_hugo&lt;/code&gt;. It is a R project with the git system by default.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-a-new-site&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Creating a new site&lt;/h2&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Pick a Hugo theme from &lt;a href=&#34;http://themes.gohugo.io&#34; class=&#34;uri&#34;&gt;http://themes.gohugo.io&lt;/a&gt;. I use &lt;strong&gt;Academic&lt;/strong&gt; for my site.&lt;/li&gt;
+&lt;li&gt;Creating a new site&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;blogdown::new_site(dir = &amp;quot;.&amp;quot;, theme = &amp;quot;gcushen/hugo-academic&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;hosting-the-site-on-github&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Hosting the Site on Github&lt;/h1&gt;
+&lt;p&gt;Use the &lt;a href=&#34;https://gist.github.com/gitaarik/8735255&#34;&gt;submodule&lt;/a&gt; to sync my local sites(the public folder) with &lt;code&gt;&amp;lt;my-user-name&amp;gt;.github.io&lt;/code&gt;&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;git submodule add -b master git@github.com:&amp;lt;&amp;lt;my-user-name&amp;gt;/&amp;lt;my-user-name&amp;gt;.github.io.git public&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As &lt;code&gt;SSH&lt;/code&gt; is used to sync with Github, I need to create my own private key pair set in advance.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd ~/.ssh &amp;amp;&amp;amp; ssh-keygen
+cat id_rsa.pub&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Then, we copy the key to our github account via the website. More information can be found &lt;a href=&#34;http://stackoverflow.com/questions/2643502/git-permission-denied-publickey&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;creating-scripts&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Creating Scripts&lt;/h1&gt;
+&lt;p&gt;Add a &lt;code&gt;serve_site.R&lt;/code&gt; script in &lt;code&gt;blog_hugo&lt;/code&gt; folder to generate static sites in case Rstudio is not running.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#!/usr/bin/Rscript
+blogdown::serve_site()&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Add a &lt;code&gt;deploy.sh&lt;/code&gt; script in &lt;code&gt;blog_hugo&lt;/code&gt; foler to sync the site (and make it executable: &lt;code&gt;chmod +x deploy.sh&lt;/code&gt;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg=&amp;quot;rebuilding site `date`&amp;quot;
+if [ $# -eq 1 ]
+  then msg=&amp;quot;$1&amp;quot;
+fi
+git commit -m &amp;quot;$msg&amp;quot;
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-last-step&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The Last Step&lt;/h1&gt;
+&lt;p&gt;Modify the theme as we like and enjoy the new site.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;reference&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Reference&lt;/h1&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://gohugo.io/tutorials/github-pages-blog/&#34;&gt;Hosting on Github Pages&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/rstudio/blogdown&#34;&gt;blogdown&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/gcushen/hugo-academic&#34;&gt;hugo-academic&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;&lt;code&gt;Hugo&lt;/code&gt; can be used to hosting other types of pages on Github. More information can be found on &lt;a href=&#34;https://gohugo.io/tutorials/github-pages-blog/&#34;&gt;its website&lt;/a&gt;&lt;a href=&#34;#fnref1&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

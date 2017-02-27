@@ -1,0 +1,106 @@
+---
+title: "Hosting pages on Github using Rmarkdown and Hugo"
+author: "Guanghua Wang"
+date: 2017-02-18T20:50:00
+categories: ["Tech"]
+tags: ["R","R Markdown","R Blogdown", "Hugo", "github"]
+summary: "My personal website is created by R package `blogdown` and `Hugo` and is hosted on Github. This page summarise my steps to create this site."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+My personal website is created by R package `blogdown` and `Hugo`[^1] and is hosted on Github. This page summarise my steps to setup the site. 
+
+# Creating github repositories
+Two respositories are needed for the site.
+
+1. I create `blog_hugo` to host Hugo’s content)
+
+2. I create `<my-user-name>.github.io` to host the public folder, which contains the static website.
+
+# Installing Blogdown and Hugo
+## Install [blogdown](https://github.com/rstudio/blogdown).
+It is under heavy development when I write this blog.
+```{r install blogdown,eval=FALSE}
+# check devetolls
+if (!("devtools" %in% installed.packages())) {
+  install.packages("devtools")
+}
+devtools::install_github('rstudio/blogdown')
+```
+
+## Install [Hugo](https://gohugo.io/)
+As I use Deepin Linux, a debain-based distro, I install `Hugo` via `apt` package manager. For other installment choices, read the [Hugo installation instructions](https://gohugo.io/overview/installing/).
+```
+sudo apt install hugo
+```
+However, the Hugo in the repository is updated and it does not work for most templates. I manually download its deb package from [the release page](https://github.com/spf13/hugo/releases) and install it.
+
+# Creating the Site
+## Creating a Rproject of my new site
+1. Clone `blog_hugo` to my computer
+```{bash, eval = F}
+cd <parent-folder-of-blog_hugo>
+git clone <my-blog-hugo-repository> && cd blog_hugo
+```
+2. Create a Rproject based on the existing folder `blog_hugo`. It is a R project with the git system by default.
+
+## Creating a new site
+1. Pick a Hugo theme from [http://themes.gohugo.io](http://themes.gohugo.io). I use **Academic** for my site.
+2. Creating a new site
+```{r, eval=FALSE}
+blogdown::new_site(dir = ".", theme = "gcushen/hugo-academic")
+```
+
+# Hosting the Site on Github
+Use the [submodule](https://gist.github.com/gitaarik/8735255) to sync my local sites(the public folder) with `<my-user-name>.github.io` 
+```{bash, eval=F}
+git submodule add -b master git@github.com:<<my-user-name>/<my-user-name>.github.io.git public
+```
+As `SSH` is used to sync with Github, I need to create my own private key pair set in advance.
+```
+cd ~/.ssh && ssh-keygen
+cat id_rsa.pub
+```
+Then, we copy the key to our github account via the website. More information can be found [here](http://stackoverflow.com/questions/2643502/git-permission-denied-publickey)
+
+# Creating Scripts
+Add a `serve_site.R` script in `blog_hugo` folder to generate static sites in case Rstudio is not running.
+```
+#!/usr/bin/Rscript
+blogdown::serve_site()
+```
+
+Add a `deploy.sh` script in `blog_hugo` foler to sync the site (and make it executable: `chmod +x deploy.sh`)
+```
+# Go To Public folder
+cd public
+# Add changes to git.
+git add -A
+
+# Commit changes.
+msg="rebuilding site `date`"
+if [ $# -eq 1 ]
+  then msg="$1"
+fi
+git commit -m "$msg"
+
+# Push source and build repos.
+git push origin master
+
+# Come Back
+cd ..
+```
+
+# The Last Step
+Modify the theme as we like and enjoy the new site.
+
+# Reference
+1. [Hosting on Github Pages](https://gohugo.io/tutorials/github-pages-blog/)
+
+2. [blogdown](https://github.com/rstudio/blogdown)
+
+3. [hugo-academic](https://github.com/gcushen/hugo-academic)
+
+[^1]: `Hugo` can be used to hosting other types of pages on Github. More information can be found on [its website](https://gohugo.io/tutorials/github-pages-blog/)
