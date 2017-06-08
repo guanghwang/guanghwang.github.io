@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.21" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -39,9 +39,6 @@
   
 
   <title>Guanghua</title>
-
-
-
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -269,6 +266,48 @@
   
   
   <h3 class="article-title" itemprop="name">
+    <a href="/post/2017-06-18-na-action-of-filter-of-dplyr/" itemprop="url">NA Action of Filter of Dplyr</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-06-18 11:57:00 &#43;0000 UTC" itemprop="datePublished">
+      Sun, Jun 18, 2017
+    </time>
+  </span>
+
+  
+
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    filter in dplyr will drop NAs when we filter a variable bigger or less than certain value.
+require(dplyr) ## Loading required package: dplyr ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union test &lt;- data.frame(value = c(rep(NA,3), -3:3)) The result of filter function dplyr::filter(test, value &gt; 0) ## value ## 1 1 ## 2 2 ## 3 3  The result of base functions test$value[test$value &gt; 0] ## [1] NA NA NA 1 2 3  Conclusion If we use filter, the result would drop NA observations.
+    
+  </div>
+  <p class="read-more">
+    <a href="/post/2017-06-18-na-action-of-filter-of-dplyr/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
     <a href="/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
   </h3>
   
@@ -366,8 +405,9 @@
 
   <div class="article-style" itemprop="articleBody">
     
+    <!-- BLOGDOWN-BODY-BEFORE -->
 
-
+<!-- /BLOGDOWN-BODY-BEFORE -->
 
 <p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
 <pre class="r"><code>test_fn &lt;- function(x){
@@ -512,61 +552,6 @@ class(test_fn2(1))</code></pre>
   </div>
   <p class="read-more">
     <a href="/post/widgets/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
-    <a href="/post/managing-content/" itemprop="url">Managing content</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 11:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/academic">academic</a
-    >, 
-    
-    <a href="/tags/hugo">hugo</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    <p>This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about <a href="/post/writing-markdown-latex/" target="_blank">writing content with Markdown, LaTeX, and Shortcodes</a>.</p>
-    
-  </div>
-  <p class="read-more">
-    <a href="/post/managing-content/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>

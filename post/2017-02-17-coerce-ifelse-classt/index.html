@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.18.1" />
+  <meta name="generator" content="Hugo 0.21" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -39,9 +39,6 @@
   
 
   <title>Coercing the class of ifelse results | Guanghua</title>
-
-
-
 
 </head>
 <body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71">
@@ -177,8 +174,9 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
+      <!-- BLOGDOWN-BODY-BEFORE -->
 
-
+<!-- /BLOGDOWN-BODY-BEFORE -->
 
 <p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
 <pre class="r"><code>test_fn &lt;- function(x){

@@ -2,13 +2,56 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Guanghua on Guanghua</title>
-    <link>/index.xml</link>
+    <link>/</link>
     <description>Recent content in Guanghua on Guanghua</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 21:10:00 +0000</lastBuildDate>
-    <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>NA Action of Filter of Dplyr</title>
+      <link>/post/2017-06-18-na-action-of-filter-of-dplyr/</link>
+      <pubDate>Sun, 18 Jun 2017 11:57:00 +0000</pubDate>
+      
+      <guid>/post/2017-06-18-na-action-of-filter-of-dplyr/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;&lt;code&gt;filter&lt;/code&gt; in &lt;code&gt;dplyr&lt;/code&gt; will drop &lt;code&gt;NA&lt;/code&gt;s when we filter a variable bigger or less than certain value.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;require(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: dplyr&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test &amp;lt;- data.frame(value = c(rep(NA,3), -3:3))&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;the-result-of-filter-function&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The result of &lt;code&gt;filter&lt;/code&gt; function&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;dplyr::filter(test, value &amp;gt; 0)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   value
+## 1     1
+## 2     2
+## 3     3&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-result-of-base-functions&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;The result of base functions&lt;/h1&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;test$value[test$value &amp;gt; 0]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] NA NA NA  1  2  3&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;p&gt;If we use filter, the result would drop &lt;code&gt;NA&lt;/code&gt; observations.&lt;/p&gt;
+&lt;p&gt;if we use base functions, the &lt;code&gt;NA&lt;/code&gt;s are remained.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Hosting pages on Github using Rmarkdown and Hugo</title>
@@ -16,13 +59,7 @@
       <pubDate>Sat, 18 Feb 2017 20:50:00 +0000</pubDate>
       
       <guid>/post/2017-02-17-set-up-github-pages/</guid>
-      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
-
-
-
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -135,13 +172,7 @@ cd ..&lt;/code&gt;&lt;/pre&gt;
       <pubDate>Fri, 17 Feb 2017 18:00:00 +0000</pubDate>
       
       <guid>/post/2017-02-17-coerce-ifelse-classt/</guid>
-      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
-
-
-
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -980,13 +1011,7 @@ Here&#39;s some important information...
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
       <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>&lt;!-- BLOGDOWN-HEAD --&gt;
-
-
-
-&lt;!-- /BLOGDOWN-HEAD --&gt;
-
-&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 
@@ -1023,7 +1048,7 @@ pie(
   init.angle = -50, border = NA
 )&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;#####content/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
+&lt;img src=&#34;/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;
 Figure 1: A fancy pie chart.
 &lt;/p&gt;

@@ -1,0 +1,34 @@
+---
+title: "NA Action of Filter of Dplyr"
+author: "Guanghua Wang"
+date: 2017-06-18T11:57:00
+category: ["R Learning Notes"]
+tag: ["R Dplyr", "R function"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+`filter` in `dplyr` will drop `NA`s when we filter a variable bigger or less than certain value.
+
+```{r, example}
+require(dplyr)
+test <- data.frame(value = c(rep(NA,3), -3:3))
+```
+
+# The result of `filter` function
+```{r, dplyr result}
+dplyr::filter(test, value > 0)
+```
+
+# The result of base functions
+```{r, result of base function}
+test$value[test$value > 0]
+```
+
+# Conclusion
+
+If we use filter, the result would drop `NA` observations.
+
+if we use base functions, the `NA`s are remained.
