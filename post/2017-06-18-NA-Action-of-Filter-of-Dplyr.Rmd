@@ -1,7 +1,7 @@
 ---
 title: "NA Action of Filter of Dplyr"
 author: "Guanghua Wang"
-date: 2017-06-18T11:57:00
+date: 2017-06-08T11:57:00
 category: ["R Learning Notes"]
 tag: ["R Dplyr", "R function"]
 summary: "`filter` in `dplyr` will drop `NA`s when we filter a variable bigger or less than certain value."
