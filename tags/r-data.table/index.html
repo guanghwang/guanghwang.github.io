@@ -121,8 +121,7 @@
     <h2><a href="/post/quick-subset-data-table/">Quick Subset Using data.table</a></h2>
     <div class="article-style">
       
-      if (!require(data.table)) install.packages(&quot;data.table&quot;) ## Loading required package: data.table library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:data.table&#39;: ## ## between, first, last ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union library(tidyr) library(data.table) data(population, package = &quot;tidyr&quot;) I use population data from tidyr package as an example.
-glimpse(population) ## Observations: 4,060 ## Variables: 3 ## $ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afgha.
+      In terms of speed, <code>,I</code> in <code>data.table</code> is the fastest.
       
     </div>
   </div>

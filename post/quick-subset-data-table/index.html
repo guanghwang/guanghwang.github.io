@@ -241,39 +241,40 @@ class(populationDT)</code></pre>
 <h2>The .SD Method in <code>data.table</code></h2>
 <pre class="r"><code>t &lt;- proc.time()
 tmp1 &lt;- populationDT[
-  , .SD[population &lt; median(population)], by = c(&quot;year&quot;, &quot;country&quot;)
+  , .SD[population &lt; median(population)], by = c(&quot;country&quot;)
 ]
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.864   0.008   0.878</code></pre>
+##   0.052   0.008   0.055</code></pre>
 </div>
 <div id="the-.i-methond-in-data.table" class="section level2">
 <h2>The .I Methond in <code>data.table</code></h2>
 <pre class="r"><code>t &lt;- proc.time()
 tmp2 &lt;- populationDT[
-  populationDT[, .I[population &lt; median(population)], by = c(&quot;year&quot;, &quot;country&quot;)]$V1
+  populationDT[, .I[population &lt; median(population)], by = c(&quot;country&quot;)]$V1
 ]
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.068   0.000   0.071</code></pre>
-<pre class="r"><code>t &lt;- proc.time()
-tmp2_1 &lt;- populationDT[
-  .SD[, .I[population &lt; median(population)], by = c(&quot;year&quot;, &quot;country&quot;)]$V1
-]
-proc.time() - t</code></pre>
-<pre><code>##    user  system elapsed 
-##   0.004   0.000   0.003</code></pre>
+##   0.008   0.000   0.007</code></pre>
 </div>
 <div id="the-dplyr-method" class="section level2">
 <h2>The <code>dplyr</code> method</h2>
 <pre class="r"><code>t &lt;- proc.time()
 tmp3 &lt;- population %&gt;% 
-  group_by(year, country) %&gt;% 
+  group_by(country) %&gt;% 
   filter(population &lt; median(population)) %&gt;% 
   ungroup()
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.188   0.000   0.205</code></pre>
+##   0.032   0.000   0.033</code></pre>
+</div>
+<div id="whether-is-the-fianl-data-identical" class="section level2">
+<h2>Whether Is the Fianl Data Identical?</h2>
+<pre class="r"><code>identical(tmp1, tmp2)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code>setdiff(tmp2, tmp3)</code></pre>
+<pre><code>## Empty data.table (0 rows) of 3 cols: country,year,population</code></pre>
+<p>I got same data.frame by three different methods. In terms of speed, <code>,I</code> in <code>data.table</code> is the fastest.</p>
 </div>
 
     </div>

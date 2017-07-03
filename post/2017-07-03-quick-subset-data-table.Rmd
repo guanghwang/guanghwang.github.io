@@ -5,6 +5,7 @@ date: '2017-07-03'
 slug: quick-subset-data-table
 categories: ["R Learning Notes"]
 tags: ["R data.table"]
+summary: "In terms of speed, `,I` in `data.table` is the fastest."
 ---
 
 ```{r setup}
@@ -29,7 +30,7 @@ class(populationDT)
 ```{r SD methond in data.table}
 t <- proc.time()
 tmp1 <- populationDT[
-  , .SD[population < median(population)], by = c("year", "country")
+  , .SD[population < median(population)], by = c("country")
 ]
 proc.time() - t
 ```
@@ -38,25 +39,25 @@ proc.time() - t
 ```{r I methond in data.table}
 t <- proc.time()
 tmp2 <- populationDT[
-  populationDT[, .I[population < median(population)], by = c("year", "country")]$V1
+  populationDT[, .I[population < median(population)], by = c("country")]$V1
 ]
 proc.time() - t
-
-t <- proc.time()
-tmp2_1 <- populationDT[
-  .SD[, .I[population < median(population)], by = c("year", "country")]$V1
-]
-proc.time() - t
-
 ```
-
 
 ## The `dplyr` method
 ```{r dployr methond}
 t <- proc.time()
 tmp3 <- population %>% 
-  group_by(year, country) %>% 
+  group_by(country) %>% 
   filter(population < median(population)) %>% 
   ungroup()
 proc.time() - t
 ```
+
+## Whether Is the Fianl Data Identical?
+```{r compare data}
+identical(tmp1, tmp2)
+setdiff(tmp2, tmp3)
+```
+
+I got same data.frame by three different methods. In terms of speed, `,I` in `data.table` is the fastest.
