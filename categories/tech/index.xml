@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tech on Guanghua</title>
-    <link>https://guanghwang.github.io/categories/tech/</link>
+    <link>/categories/tech/</link>
     <description>Recent content in Tech on Guanghua</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -12,10 +12,10 @@
     
     <item>
       <title>Hosting pages on Github using Rmarkdown and Hugo</title>
-      <link>https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/</link>
+      <link>/post/2017-02-17-set-up-github-pages/</link>
       <pubDate>Sat, 18 Feb 2017 20:50:00 +0000</pubDate>
       
-      <guid>https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/</guid>
+      <guid>/post/2017-02-17-set-up-github-pages/</guid>
       <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;

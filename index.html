@@ -28,13 +28,13 @@
   <link rel="stylesheet" href="/css/hugo-academic.css">
   
 
-  <link rel="alternate" href="https://guanghwang.github.io/index.xml" type="application/rss+xml" title="Guanghua">
-  <link rel="feed" href="https://guanghwang.github.io/index.xml" type="application/rss+xml" title="Guanghua">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Guanghua">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Guanghua">
 
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/apple-touch-icon.png">
 
-  <link rel="canonical" href="https://guanghwang.github.io/">
+  <link rel="canonical" href="/">
 
   
 
@@ -266,7 +266,71 @@
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/2017-06-18-na-action-of-filter-of-dplyr/" itemprop="url">NA Action of Filter of Dplyr</a>
+    <a href="/post/quick-subset-data-table/" itemprop="url">Quick Subset Using data.table</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-07-03 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Mon, Jul 3, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r-learning-notes">R Learning Notes</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/r-data.table">R data.table</a
+    >
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    if (!require(data.table)) install.packages(&quot;data.table&quot;) ## Loading required package: data.table library(dplyr) ## ## Attaching package: &#39;dplyr&#39; ## The following objects are masked from &#39;package:data.table&#39;: ## ## between, first, last ## The following objects are masked from &#39;package:stats&#39;: ## ## filter, lag ## The following objects are masked from &#39;package:base&#39;: ## ## intersect, setdiff, setequal, union library(tidyr) library(data.table) data(population, package = &quot;tidyr&quot;) I use population data from tidyr package as an example.
+glimpse(population) ## Observations: 4,060 ## Variables: 3 ## $ country &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afgha.
+    
+  </div>
+  <p class="read-more">
+    <a href="/post/quick-subset-data-table/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
+    <a href="/post/2017-06-18-na-action-of-filter-of-dplyr/" itemprop="url">NA Action of Filter of Dplyr</a>
   </h3>
   
 
@@ -292,7 +356,7 @@
     
   </div>
   <p class="read-more">
-    <a href="https://guanghwang.github.io/post/2017-06-18-na-action-of-filter-of-dplyr/" class="btn btn-primary btn-outline">
+    <a href="/post/2017-06-18-na-action-of-filter-of-dplyr/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
@@ -307,7 +371,7 @@
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
+    <a href="/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
   </h3>
   
 
@@ -367,7 +431,7 @@
     
   </div>
   <p class="read-more">
-    <a href="https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
+    <a href="/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
@@ -382,7 +446,7 @@
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/2017-02-17-coerce-ifelse-classt/" itemprop="url">Coercing the class of ifelse results</a>
+    <a href="/post/2017-02-17-coerce-ifelse-classt/" itemprop="url">Coercing the class of ifelse results</a>
   </h3>
   
 
@@ -436,7 +500,7 @@ class(test_fn2(1))</code></pre>
     
   </div>
   <p class="read-more">
-    <a href="https://guanghwang.github.io/post/2017-02-17-coerce-ifelse-classt/" class="btn btn-primary btn-outline">
+    <a href="/post/2017-02-17-coerce-ifelse-classt/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
@@ -450,12 +514,12 @@ class(test_fn2(1))</code></pre>
 <div class="article-list-item" itemscope itemprop="blogPost">
   
   
-  <a href="https://guanghwang.github.io/post/getting-started/">
+  <a href="/post/getting-started/">
     <img src="/img/headers/getting-started.png" class="article-banner" itemprop="image">
   </a>
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/getting-started/" itemprop="url">Getting started with the Academic framework for Hugo</a>
+    <a href="/post/getting-started/" itemprop="url">Getting started with the Academic framework for Hugo</a>
   </h3>
   
 
@@ -495,62 +559,7 @@ class(test_fn2(1))</code></pre>
     
   </div>
   <p class="read-more">
-    <a href="https://guanghwang.github.io/post/getting-started/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/widgets/" itemprop="url">Customizing the homepage with widgets</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 11:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/academic">academic</a
-    >, 
-    
-    <a href="/tags/hugo">hugo</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    <p>Enable/disable and configure widgets to customize your homepage.</p>
-    
-  </div>
-  <p class="read-more">
-    <a href="https://guanghwang.github.io/post/widgets/" class="btn btn-primary btn-outline">
+    <a href="/post/getting-started/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
@@ -603,7 +612,7 @@ class(test_fn2(1))</code></pre>
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
+    <a href="/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
   </h3>
   
 
@@ -663,7 +672,7 @@ class(test_fn2(1))</code></pre>
     
   </div>
   <p class="read-more">
-    <a href="https://guanghwang.github.io/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
+    <a href="/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>

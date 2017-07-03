@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R Data.Table on Guanghua</title>
+    <link>/tags/r-data.table/</link>
+    <description>Recent content in R Data.Table on Guanghua</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
+    <lastBuildDate>Mon, 03 Jul 2017 00:00:00 +0000</lastBuildDate>
+    <atom:link href="/tags/r-data.table/" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quick Subset Using data.table</title>
+      <link>/post/quick-subset-data-table/</link>
+      <pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/quick-subset-data-table/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(data.table)) install.packages(&amp;quot;data.table&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: data.table&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:data.table&amp;#39;:
+## 
+##     between, first, last&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyr)
+library(data.table)
+data(population, package = &amp;quot;tidyr&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;I use &lt;code&gt;population&lt;/code&gt; data from &lt;code&gt;tidyr&lt;/code&gt; package as an example.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;glimpse(population)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Observations: 4,060
+## Variables: 3
+## $ country    &amp;lt;chr&amp;gt; &amp;quot;Afghanistan&amp;quot;, &amp;quot;Afghanistan&amp;quot;, &amp;quot;Afghanistan&amp;quot;, &amp;quot;Afgha...
+## $ year       &amp;lt;int&amp;gt; 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 200...
+## $ population &amp;lt;int&amp;gt; 17586073, 18415307, 19021226, 19496836, 19987071, 2...&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(population)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    country               year        population       
+##  Length:4060        Min.   :1995   Min.   :1.129e+03  
+##  Class :character   1st Qu.:1999   1st Qu.:6.029e+05  
+##  Mode  :character   Median :2004   Median :5.319e+06  
+##                     Mean   :2004   Mean   :3.003e+07  
+##                     3rd Qu.:2009   3rd Qu.:1.855e+07  
+##                     Max.   :2013   Max.   :1.386e+09&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(population)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;tbl_df&amp;quot;     &amp;quot;tbl&amp;quot;        &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;populationDT &amp;lt;- as.data.table(population)
+class(populationDT)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;data.table&amp;quot; &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;the-.sd-method-in-data.table&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The .SD Method in &lt;code&gt;data.table&lt;/code&gt;&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;t &amp;lt;- proc.time()
+tmp1 &amp;lt;- populationDT[
+  , .SD[population &amp;lt; median(population)], by = c(&amp;quot;year&amp;quot;, &amp;quot;country&amp;quot;)
+]
+proc.time() - t&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.864   0.008   0.878&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-.i-methond-in-data.table&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The .I Methond in &lt;code&gt;data.table&lt;/code&gt;&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;t &amp;lt;- proc.time()
+tmp2 &amp;lt;- populationDT[
+  populationDT[, .I[population &amp;lt; median(population)], by = c(&amp;quot;year&amp;quot;, &amp;quot;country&amp;quot;)]$V1
+]
+proc.time() - t&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.068   0.000   0.071&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;t &amp;lt;- proc.time()
+tmp2_1 &amp;lt;- populationDT[
+  .SD[, .I[population &amp;lt; median(population)], by = c(&amp;quot;year&amp;quot;, &amp;quot;country&amp;quot;)]$V1
+]
+proc.time() - t&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.004   0.000   0.003&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-dplyr-method&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;The &lt;code&gt;dplyr&lt;/code&gt; method&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;t &amp;lt;- proc.time()
+tmp3 &amp;lt;- population %&amp;gt;% 
+  group_by(year, country) %&amp;gt;% 
+  filter(population &amp;lt; median(population)) %&amp;gt;% 
+  ungroup()
+proc.time() - t&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.188   0.000   0.205&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
