@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Guanghua</title>
-    <link>/categories/</link>
+    <link>https://guanghwang.github.io/categories/</link>
     <description>Recent content in Categories on Guanghua</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -11,19 +11,19 @@
     
     <item>
       <title>R</title>
-      <link>/categories/r/</link>
+      <link>https://guanghwang.github.io/categories/r/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/categories/r/</guid>
+      <guid>https://guanghwang.github.io/categories/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tech</title>
-      <link>/categories/tech/</link>
+      <link>https://guanghwang.github.io/categories/tech/</link>
       <pubDate>Sat, 18 Feb 2017 20:50:00 +0000</pubDate>
       
-      <guid>/categories/tech/</guid>
+      <guid>https://guanghwang.github.io/categories/tech/</guid>
       <description></description>
     </item>
     

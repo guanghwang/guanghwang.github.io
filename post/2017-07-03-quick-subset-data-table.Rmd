@@ -1,0 +1,62 @@
+---
+title: Quick Subset Using data.table
+author: Guanghua Wang
+date: '2017-07-03'
+slug: quick-subset-data-table
+categories: ["R Learning Notes"]
+tags: ["R data.table"]
+---
+
+```{r setup}
+if (!require(data.table)) install.packages("data.table")
+library(dplyr)
+library(tidyr)
+library(data.table)
+data(population, package = "tidyr")
+```
+
+I use `population` data from `tidyr` package as an example.
+
+```{r data description}
+glimpse(population)
+summary(population)
+class(population)
+populationDT <- as.data.table(population)
+class(populationDT)
+```
+
+## The .SD Method in `data.table`
+```{r SD methond in data.table}
+t <- proc.time()
+tmp1 <- populationDT[
+  , .SD[population < median(population)], by = c("year", "country")
+]
+proc.time() - t
+```
+
+## The .I Methond in `data.table`
+```{r I methond in data.table}
+t <- proc.time()
+tmp2 <- populationDT[
+  populationDT[, .I[population < median(population)], by = c("year", "country")]$V1
+]
+proc.time() - t
+
+t <- proc.time()
+tmp2_1 <- populationDT[
+  .SD[, .I[population < median(population)], by = c("year", "country")]$V1
+]
+proc.time() - t
+
+```
+
+
+## The `dplyr` method
+```{r dployr methond}
+t <- proc.time()
+tmp3 <- population %>% 
+  group_by(year, country) %>% 
+  filter(population < median(population)) %>% 
+  ungroup()
+proc.time() - t
+```

@@ -3,7 +3,7 @@ title: "Coercing the class of ifelse results"
 author: "Guanghua Wang"
 date: 2017-02-17T18:00:00
 category: ["R Learning Notes"]
-tag: ["R Dplyr", "R class"]
+tag: ["R dplyr", "R class"]
 ---
 
 ```{r setup, include=FALSE}
