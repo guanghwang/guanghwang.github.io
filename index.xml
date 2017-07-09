@@ -11,6 +11,147 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Least Square Dummy Variable Regression V.S. Fixed Effect Model</title>
+      <link>/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/</link>
+      <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;In the panle regression setup, the coefficients of continuous variables in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(plm)) install.packages(&amp;quot;plm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: plm&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: Formula&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plm)
+if (!require(broom)) install.packages(&amp;quot;broom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: broom&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(broom)
+data(package = &amp;quot;plm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;data-desciption&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Desciption&lt;/h2&gt;
+&lt;p&gt;I use &lt;code&gt;Males&lt;/code&gt; dataset as an example.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;data(Males, package = &amp;quot;plm&amp;quot;)
+summary(Males)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        nr             year          school          exper       
+##  Min.   :   13   Min.   :1980   Min.   : 3.00   Min.   : 0.000  
+##  1st Qu.: 2329   1st Qu.:1982   1st Qu.:11.00   1st Qu.: 4.000  
+##  Median : 4569   Median :1984   Median :12.00   Median : 6.000  
+##  Mean   : 5262   Mean   :1984   Mean   :11.77   Mean   : 6.515  
+##  3rd Qu.: 8406   3rd Qu.:1985   3rd Qu.:12.00   3rd Qu.: 9.000  
+##  Max.   :12548   Max.   :1987   Max.   :16.00   Max.   :18.000  
+##                                                                 
+##  union         ethn      married    health          wage       
+##  no :3296   other:3176   no :2446   no :4286   Min.   :-3.579  
+##  yes:1064   black: 504   yes:1914   yes:  74   1st Qu.: 1.351  
+##             hisp : 680                         Median : 1.671  
+##                                                Mean   : 1.649  
+##                                                3rd Qu.: 1.991  
+##                                                Max.   : 4.052  
+##                                                                
+##                              industry   
+##  Manufacturing                   :1231  
+##  Trade                           :1169  
+##  Professional_and_Related Service: 333  
+##  Business_and_Repair_Service     : 331  
+##  Construction                    : 327  
+##  Transportation                  : 286  
+##  (Other)                         : 683  
+##                                occupation            residence   
+##  Craftsmen, Foremen_and_kindred     :934   rural_area     :  85  
+##  Operatives_and_kindred             :881   north_east     : 733  
+##  Service_Workers                    :509   nothern_central: 964  
+##  Clerical_and_kindred               :486   south          :1333  
+##  Professional, Technical_and_kindred:453   NA&amp;#39;s           :1245  
+##  Laborers_and_farmers               :401                         
+##  (Other)                            :696&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;class(Males)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;data.frame&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the &lt;code&gt;Males&lt;/code&gt; dataset, &lt;code&gt;nr&lt;/code&gt; represents the respondents id, and &lt;code&gt;year&lt;/code&gt; is the survey year. This dataset is a panel data set.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;lsdv&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;LSDV&lt;/h2&gt;
+&lt;p&gt;In the following comparison, I study the relationship between experience and wage. &lt;span class=&#34;math inline&#34;&gt;\(\log(wage) = \alpha + \beta exp + \gamma exp^2 + \theta Controls\)&lt;/span&gt; where the controls include &lt;code&gt;union&lt;/code&gt;, &lt;code&gt;ethnicity(ethn)&lt;/code&gt;, &lt;code&gt;health&lt;/code&gt; and &lt;code&gt;married&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;t &amp;lt;- proc.time()
+lsdv &amp;lt;- lm(
+  log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married + factor(nr),
+  data = Males,
+  subset = wage &amp;gt;= 1
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in log(wage): NaNs produced&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time &amp;lt;- proc.time() - t
+print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   1.396   0.024   1.420&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.result &amp;lt;- tidy(lsdv)
+dim(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 549   5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the LSDV model, the final result includes a set of individual dummies.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   term     estimate    std.error statistic      p.value
+## 1          (Intercept)  0.207729300 0.0527951188  3.934631 8.496559e-05
+## 2                exper  0.050083076 0.0034919278 14.342529 2.330711e-45
+## 3           I(exper^2) -0.001704741 0.0002482169 -6.867948 7.692773e-12
+## 4 I(as.integer(union))  0.037940394 0.0078563432  4.829269 1.429904e-06
+## 5            ethnblack  0.261543512 0.0703569468  3.717380 2.044951e-04
+## 6             ethnhisp  0.171236478 0.0704786977  2.429620 1.516534e-02&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;fixed-effect-model&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Fixed Effect Model&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;Males.panel &amp;lt;- plm.data(Males, indexes = c(&amp;quot;nr&amp;quot;, &amp;quot;year&amp;quot;))
+t &amp;lt;- proc.time()
+fixed_effect &amp;lt;- plm(
+  log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
+  data = Males.panel,
+  subset = wage &amp;gt;= 1,
+  model = &amp;quot;within&amp;quot;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning in log(wage): NaNs produced&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.time &amp;lt;- proc.time() - t
+print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.072   0.000   0.068&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result &amp;lt;- tidy(fixed_effect)
+dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 5 5&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In the fixed effect model, we only have 5 coefficients because the time-invariant variable(&lt;code&gt;ethn&lt;/code&gt;) is cancalled out in the regression.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##                   term     estimate    std.error  statistic      p.value
+## 1                exper  0.050083076 0.0034919278 14.3425289 2.330711e-45
+## 2           I(exper^2) -0.001704741 0.0002482169 -6.8679477 7.692773e-12
+## 3 I(as.integer(union))  0.037940394 0.0078563432  4.8292689 1.429904e-06
+## 4            healthyes  0.004980649 0.0195340488  0.2549727 7.987594e-01
+## 5           marriedyes  0.013462863 0.0073480076  1.8321787 6.701093e-02&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;comparison&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Comparison&lt;/h2&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result[,2:4] - lsdv.result[2:(nrow(fixed_effect.result) + 1),2:4]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##        estimate     std.error     statistic
+## 1 -2.373102e-15 -1.960238e-16  1.261213e-13
+## 2  7.806256e-18 -2.331035e-18 -3.286260e-14
+## 3  7.563394e-16  8.153200e-17  4.618528e-14
+## 4 -2.565629e-01 -5.082290e-02 -3.462407e+00
+## 5 -1.577736e-01 -6.313069e-02 -5.974416e-01&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The results of continuous variables are (almost) numerically identical. However, the results of dummy variables are different.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   1.396   0.024   1.420&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   0.072   0.000   0.068&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time - fixed_effect.time&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
+##   1.324   0.024   1.352&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time[3] / fixed_effect.time[3]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##  elapsed 
+## 20.88235&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The X matrice increases accordingly).&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Quick Subset Using data.table</title>
       <link>/post/quick-subset-data-table/</link>
       <pubDate>Mon, 03 Jul 2017 00:00:00 +0000</pubDate>
@@ -1187,16 +1328,6 @@ With Jekyll, something that looked like&lt;/p&gt;
 &lt;h2 id=&#34;a-practical-example&#34;&gt;A practical example&lt;/h2&gt;
 
 &lt;p&gt;Alexandre Normand migrated his website from Jekyll to Hugo in less than a day. You can see all his changes by looking at this GitHub &lt;a href=&#34;https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610&#34; target=&#34;_blank&#34;&gt;diff&lt;/a&gt;. However, bear in mind that this example is &lt;strong&gt;not specific to the Academic theme nor does it use the latest version of Hugo&lt;/strong&gt;.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Mobile visual clothing search</title>
-      <link>/publication/clothing-search/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      
-      <guid>/publication/clothing-search/</guid>
-      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
 </description>
     </item>
     

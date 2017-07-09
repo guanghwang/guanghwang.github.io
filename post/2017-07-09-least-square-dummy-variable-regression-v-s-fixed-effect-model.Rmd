@@ -1,0 +1,89 @@
+---
+title: Least Square Dummy Variable Regression V.S. Fixed Effect Model
+author: Guanghua Wang
+date: '2017-07-09'
+slug: least-square-dummy-variable-regression-v-s-fixed-effect-model
+categories: ["R Learning Notes"]
+tags: ["R regression"]
+summary: The fixed effect model is much faster than LSDV.
+---
+
+In the panle regression setup, the coefficients of continuous variables in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.
+
+```{r setup}
+if (!require(plm)) install.packages("plm")
+library(plm)
+if (!require(broom)) install.packages("broom")
+library(broom)
+data(package = "plm")
+```
+
+## Data Desciption
+I use `Males` dataset as an example. 
+```{r data description}
+data(Males, package = "plm")
+summary(Males)
+class(Males)
+```
+In the `Males` dataset, `nr` represents the respondents id, and `year` is the survey year. This dataset is a panel data set.
+
+## LSDV
+In the following comparison, I study the relationship between experience and wage.
+$\log(wage) = \alpha + \beta exp + \gamma exp^2 + \theta Controls$ 
+where the controls include `union`, `ethnicity(ethn)`, `health` and `married`.
+```{r LSDV}
+t <- proc.time()
+lsdv <- lm(
+  log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married + factor(nr),
+  data = Males,
+  subset = wage >= 1
+)
+lsdv.time <- proc.time() - t
+print(lsdv.time)
+
+lsdv.result <- tidy(lsdv)
+dim(lsdv.result)
+```
+
+In the LSDV model, the final result includes a set of individual dummies.
+```{r LSDV result}
+head(lsdv.result)
+```
+
+## Fixed Effect Model
+```{r fixed effect model}
+Males.panel <- plm.data(Males, indexes = c("nr", "year"))
+t <- proc.time()
+fixed_effect <- plm(
+  log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
+  data = Males.panel,
+  subset = wage >= 1,
+  model = "within"
+)
+fixed_effect.time <- proc.time() - t
+print(fixed_effect.time)
+fixed_effect.result <- tidy(fixed_effect)
+dim(fixed_effect.result)
+```
+
+In the fixed effect model, we only have 5 coefficients because the time-invariant variable(`ethn`) is cancalled out in the regression.
+
+```{r fixed effect result}
+head(fixed_effect.result)
+```
+
+## Comparison
+```{r comparison}
+fixed_effect.result[,2:4] - lsdv.result[2:(nrow(fixed_effect.result) + 1),2:4]
+```
+
+The results of continuous variables are (almost) numerically identical. However, the results of dummy variables are different.
+
+```{r comparison time}
+print(lsdv.time)
+print(fixed_effect.time)
+lsdv.time - fixed_effect.time
+lsdv.time[3] / fixed_effect.time[3]
+```
+
+In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is `r length(unique(Males$nr))`. As individuals increases, the computing time increase dramatically. (The X matrice increases accordingly).
