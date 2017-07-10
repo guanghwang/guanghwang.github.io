@@ -114,6 +114,55 @@
   
   <div>
     
+    <h2><a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/">Notes on the Constant Term in the Fixed Effect Model</a></h2>
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-07-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Mon, Jul 10, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r-learning-notes">R Learning NOtes</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+    <div class="article-style"><p>
+      
+      <!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<p>In stata, the fixed effect model(<code>xtreg y x1 x2 x3, fe</code>) report a constant term. The underline estimate is <span class="math display">\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]</span> with the constrant <span class="math inline">\(\bar{v}\)</span> equals to 0. Details can be found on <a href="http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/">Stata’s website</a>.</p>
+<p>In R, <code>plm</code> package does not calculate the <code>some whate artificial</code>^1 intercept for within models.</p>
+<p>^1 see help(“within_intercept”, package = “plm”)</p>
+
+      
+    </p></div>
+  </div>
+  
+  <div>
+    
     <h2><a href="/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/">Least Square Dummy Variable Regression V.S. Fixed Effect Model</a></h2>
     
 
@@ -511,64 +560,6 @@ class(test_fn2(1))</code></pre>
     <div class="article-style"><p>
       
       Content can be written using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown</a>, <a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics" target="_blank">LaTeX math</a>, and <a href="http://gohugo.io/extras/shortcodes/" target="_blank">Hugo Shortcodes</a>. Additionally, HTML may be used for advanced formatting. This article gives an overview of the most common formatting options.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="/post/2015-07-23-r-rmarkdown/">Hello R Markdown</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2015-07-23 21:13:14 -0500 -0500" itemprop="datePublished">
-      Thu, Jul 23, 2015
-    </time>
-  </span>
-
-  
-  
-  
-  <span class="article-categories">
-    <i class="fa fa-folder"></i>
-    
-    <a href="/categories/r">R</a
-    >
-    
-  </span>
-  
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/r-markdown">R Markdown</a
-    >, 
-    
-    <a href="/tags/plot">plot</a
-    >, 
-    
-    <a href="/tags/regression">regression</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      R Markdown This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" target="_blank">http://rmarkdown.rstudio.com</a>.
-You can embed an R code chunk like this:
-summary(cars) ## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.
       
     </p></div>
   </div>

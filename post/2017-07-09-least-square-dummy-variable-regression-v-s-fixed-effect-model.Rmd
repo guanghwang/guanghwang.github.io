@@ -8,7 +8,7 @@ tags: ["R regression"]
 summary: The fixed effect model is much faster than LSDV.
 ---
 
-In the panle regression setup, the coefficients of continuous variables in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.
+In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.
 
 ```{r setup}
 if (!require(plm)) install.packages("plm")
@@ -16,6 +16,7 @@ library(plm)
 if (!require(broom)) install.packages("broom")
 library(broom)
 data(package = "plm")
+library(dplyr)
 ```
 
 ## Data Desciption
@@ -47,7 +48,7 @@ dim(lsdv.result)
 
 In the LSDV model, the final result includes a set of individual dummies.
 ```{r LSDV result}
-head(lsdv.result)
+knitr::kable(head(lsdv.result, 9))
 ```
 
 ## Fixed Effect Model
@@ -58,6 +59,7 @@ fixed_effect <- plm(
   log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
   data = Males.panel,
   subset = wage >= 1,
+  effect = "individual",
   model = "within"
 )
 fixed_effect.time <- proc.time() - t
@@ -69,15 +71,15 @@ dim(fixed_effect.result)
 In the fixed effect model, we only have 5 coefficients because the time-invariant variable(`ethn`) is cancalled out in the regression.
 
 ```{r fixed effect result}
-head(fixed_effect.result)
+knitr::kable(fixed_effect.result)
 ```
 
 ## Comparison
 ```{r comparison}
-fixed_effect.result[,2:4] - lsdv.result[2:(nrow(fixed_effect.result) + 1),2:4]
+knitr::kable(fixed_effect.result[,1:3] %>% left_join(lsdv.result[,1:3], by = "term", suffix = c(".fixed", ".lsdv")))
 ```
 
-The results of continuous variables are (almost) numerically identical. However, the results of dummy variables are different.
+The results of continuous variables are (almost) numerically identical.
 
 ```{r comparison time}
 print(lsdv.time)
@@ -86,4 +88,5 @@ lsdv.time - fixed_effect.time
 lsdv.time[3] / fixed_effect.time[3]
 ```
 
-In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is `r length(unique(Males$nr))`. As individuals increases, the computing time increase dramatically. (The X matrice increases accordingly).
+In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is `r length(unique(Males$nr))`. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).
+

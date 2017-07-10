@@ -11,6 +11,22 @@
     <atom:link href="/post/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Notes on the Constant Term in the Fixed Effect Model</title>
+      <link>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</link>
+      <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;In stata, the fixed effect model(&lt;code&gt;xtreg y x1 x2 x3, fe&lt;/code&gt;) report a constant term. The underline estimate is &lt;span class=&#34;math display&#34;&gt;\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]&lt;/span&gt; with the constrant &lt;span class=&#34;math inline&#34;&gt;\(\bar{v}\)&lt;/span&gt; equals to 0. Details can be found on &lt;a href=&#34;http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/&#34;&gt;Stata’s website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In R, &lt;code&gt;plm&lt;/code&gt; package does not calculate the &lt;code&gt;some whate artificial&lt;/code&gt;^1 intercept for within models.&lt;/p&gt;
+&lt;p&gt;^1 see help(“within_intercept”, package = “plm”)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Least Square Dummy Variable Regression V.S. Fixed Effect Model</title>
       <link>/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/</link>
       <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
@@ -20,7 +36,7 @@
 
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 
-&lt;p&gt;In the panle regression setup, the coefficients of continuous variables in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.&lt;/p&gt;
+&lt;p&gt;In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(plm)) install.packages(&amp;quot;plm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: plm&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: Formula&lt;/code&gt;&lt;/pre&gt;
@@ -28,7 +44,19 @@
 if (!require(broom)) install.packages(&amp;quot;broom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: broom&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(broom)
-data(package = &amp;quot;plm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+data(package = &amp;quot;plm&amp;quot;)
+library(dplyr)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:plm&amp;#39;:
+## 
+##     between, lag, lead&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;data-desciption&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data Desciption&lt;/h2&gt;
 &lt;p&gt;I use &lt;code&gt;Males&lt;/code&gt; dataset as an example.&lt;/p&gt;
@@ -83,19 +111,88 @@ lsdv &amp;lt;- lm(
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time &amp;lt;- proc.time() - t
 print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.396   0.024   1.420&lt;/code&gt;&lt;/pre&gt;
+##   1.384   0.012   1.397&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.result &amp;lt;- tidy(lsdv)
 dim(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 549   5&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the LSDV model, the final result includes a set of individual dummies.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##                   term     estimate    std.error statistic      p.value
-## 1          (Intercept)  0.207729300 0.0527951188  3.934631 8.496559e-05
-## 2                exper  0.050083076 0.0034919278 14.342529 2.330711e-45
-## 3           I(exper^2) -0.001704741 0.0002482169 -6.867948 7.692773e-12
-## 4 I(as.integer(union))  0.037940394 0.0078563432  4.829269 1.429904e-06
-## 5            ethnblack  0.261543512 0.0703569468  3.717380 2.044951e-04
-## 6             ethnhisp  0.171236478 0.0704786977  2.429620 1.516534e-02&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(head(lsdv.result, 9))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;term&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;estimate&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;std.error&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;statistic&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;p.value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;(Intercept)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.2077293&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0527951&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;3.9346308&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000850&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;exper&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0500831&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0034919&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.3425289&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(exper^2)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.0017047&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0002482&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-6.8679477&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(as.integer(union))&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0379404&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0078563&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;4.8292689&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000014&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;ethnblack&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.2615435&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0703569&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;3.7173801&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0002045&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;ethnhisp&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.1712365&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0704787&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;2.4296203&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0151653&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;healthyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0049806&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0195340&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.2549727&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.7987594&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;marriedyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0134629&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0073480&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.8321787&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0670109&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;factor(nr)17&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.0246613&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0701815&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.3513930&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.7253150&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;div id=&#34;fixed-effect-model&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Fixed Effect Model&lt;/h2&gt;
@@ -105,48 +202,133 @@ fixed_effect &amp;lt;- plm(
   log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
   data = Males.panel,
   subset = wage &amp;gt;= 1,
+  effect = &amp;quot;individual&amp;quot;,
   model = &amp;quot;within&amp;quot;
 )&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning in log(wage): NaNs produced&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.time &amp;lt;- proc.time() - t
 print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.072   0.000   0.068&lt;/code&gt;&lt;/pre&gt;
+##   0.064   0.000   0.062&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result &amp;lt;- tidy(fixed_effect)
 dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5 5&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In the fixed effect model, we only have 5 coefficients because the time-invariant variable(&lt;code&gt;ethn&lt;/code&gt;) is cancalled out in the regression.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;head(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##                   term     estimate    std.error  statistic      p.value
-## 1                exper  0.050083076 0.0034919278 14.3425289 2.330711e-45
-## 2           I(exper^2) -0.001704741 0.0002482169 -6.8679477 7.692773e-12
-## 3 I(as.integer(union))  0.037940394 0.0078563432  4.8292689 1.429904e-06
-## 4            healthyes  0.004980649 0.0195340488  0.2549727 7.987594e-01
-## 5           marriedyes  0.013462863 0.0073480076  1.8321787 6.701093e-02&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;term&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;estimate&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;std.error&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;statistic&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;p.value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;exper&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0500831&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0034919&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;14.3425289&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(exper^2)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.0017047&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0002482&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-6.8679477&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000000&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(as.integer(union))&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0379404&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0078563&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;4.8292689&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0000014&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;healthyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0049806&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0195340&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.2549727&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.7987594&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;marriedyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0134629&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0073480&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;1.8321787&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0670109&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;div id=&#34;comparison&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Comparison&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result[,2:4] - lsdv.result[2:(nrow(fixed_effect.result) + 1),2:4]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##        estimate     std.error     statistic
-## 1 -2.373102e-15 -1.960238e-16  1.261213e-13
-## 2  7.806256e-18 -2.331035e-18 -3.286260e-14
-## 3  7.563394e-16  8.153200e-17  4.618528e-14
-## 4 -2.565629e-01 -5.082290e-02 -3.462407e+00
-## 5 -1.577736e-01 -6.313069e-02 -5.974416e-01&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;The results of continuous variables are (almost) numerically identical. However, the results of dummy variables are different.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;knitr::kable(fixed_effect.result[,1:3] %&amp;gt;% left_join(lsdv.result[,1:3], by = &amp;quot;term&amp;quot;, suffix = c(&amp;quot;.fixed&amp;quot;, &amp;quot;.lsdv&amp;quot;)))&lt;/code&gt;&lt;/pre&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th align=&#34;left&#34;&gt;term&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;estimate.fixed&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;std.error.fixed&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;estimate.lsdv&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;std.error.lsdv&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;exper&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0500831&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0034919&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0500831&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0034919&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(exper^2)&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.0017047&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0002482&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;-0.0017047&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0002482&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;I(as.integer(union))&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0379404&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0078563&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0379404&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0078563&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;healthyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0049806&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0195340&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0049806&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0195340&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td align=&#34;left&#34;&gt;marriedyes&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0134629&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0073480&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0134629&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;0.0073480&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;The results of continuous variables are (almost) numerically identical.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.396   0.024   1.420&lt;/code&gt;&lt;/pre&gt;
+##   1.384   0.012   1.397&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.072   0.000   0.068&lt;/code&gt;&lt;/pre&gt;
+##   0.064   0.000   0.062&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time - fixed_effect.time&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.324   0.024   1.352&lt;/code&gt;&lt;/pre&gt;
+##   1.320   0.012   1.335&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time[3] / fixed_effect.time[3]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  elapsed 
-## 20.88235&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The X matrice increases accordingly).&lt;/p&gt;
+## 22.53226&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).&lt;/p&gt;
 &lt;/div&gt;
 </description>
     </item>

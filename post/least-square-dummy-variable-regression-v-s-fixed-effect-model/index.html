@@ -200,7 +200,7 @@
 
 <!-- /BLOGDOWN-BODY-BEFORE -->
 
-<p>In the panle regression setup, the coefficients of continuous variables in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.</p>
+<p>In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.</p>
 <pre class="r"><code>if (!require(plm)) install.packages(&quot;plm&quot;)</code></pre>
 <pre><code>## Loading required package: plm</code></pre>
 <pre><code>## Loading required package: Formula</code></pre>
@@ -208,7 +208,19 @@
 if (!require(broom)) install.packages(&quot;broom&quot;)</code></pre>
 <pre><code>## Loading required package: broom</code></pre>
 <pre class="r"><code>library(broom)
-data(package = &quot;plm&quot;)</code></pre>
+data(package = &quot;plm&quot;)
+library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:plm&#39;:
+## 
+##     between, lag, lead</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
 <div id="data-desciption" class="section level2">
 <h2>Data Desciption</h2>
 <p>I use <code>Males</code> dataset as an example.</p>
@@ -263,19 +275,88 @@ lsdv &lt;- lm(
 <pre class="r"><code>lsdv.time &lt;- proc.time() - t
 print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.396   0.024   1.420</code></pre>
+##   1.384   0.012   1.397</code></pre>
 <pre class="r"><code>lsdv.result &lt;- tidy(lsdv)
 dim(lsdv.result)</code></pre>
 <pre><code>## [1] 549   5</code></pre>
 <p>In the LSDV model, the final result includes a set of individual dummies.</p>
-<pre class="r"><code>head(lsdv.result)</code></pre>
-<pre><code>##                   term     estimate    std.error statistic      p.value
-## 1          (Intercept)  0.207729300 0.0527951188  3.934631 8.496559e-05
-## 2                exper  0.050083076 0.0034919278 14.342529 2.330711e-45
-## 3           I(exper^2) -0.001704741 0.0002482169 -6.867948 7.692773e-12
-## 4 I(as.integer(union))  0.037940394 0.0078563432  4.829269 1.429904e-06
-## 5            ethnblack  0.261543512 0.0703569468  3.717380 2.044951e-04
-## 6             ethnhisp  0.171236478 0.0704786977  2.429620 1.516534e-02</code></pre>
+<pre class="r"><code>knitr::kable(head(lsdv.result, 9))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">0.2077293</td>
+<td align="right">0.0527951</td>
+<td align="right">3.9346308</td>
+<td align="right">0.0000850</td>
+</tr>
+<tr class="even">
+<td align="left">exper</td>
+<td align="right">0.0500831</td>
+<td align="right">0.0034919</td>
+<td align="right">14.3425289</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.0017047</td>
+<td align="right">0.0002482</td>
+<td align="right">-6.8679477</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">I(as.integer(union))</td>
+<td align="right">0.0379404</td>
+<td align="right">0.0078563</td>
+<td align="right">4.8292689</td>
+<td align="right">0.0000014</td>
+</tr>
+<tr class="odd">
+<td align="left">ethnblack</td>
+<td align="right">0.2615435</td>
+<td align="right">0.0703569</td>
+<td align="right">3.7173801</td>
+<td align="right">0.0002045</td>
+</tr>
+<tr class="even">
+<td align="left">ethnhisp</td>
+<td align="right">0.1712365</td>
+<td align="right">0.0704787</td>
+<td align="right">2.4296203</td>
+<td align="right">0.0151653</td>
+</tr>
+<tr class="odd">
+<td align="left">healthyes</td>
+<td align="right">0.0049806</td>
+<td align="right">0.0195340</td>
+<td align="right">0.2549727</td>
+<td align="right">0.7987594</td>
+</tr>
+<tr class="even">
+<td align="left">marriedyes</td>
+<td align="right">0.0134629</td>
+<td align="right">0.0073480</td>
+<td align="right">1.8321787</td>
+<td align="right">0.0670109</td>
+</tr>
+<tr class="odd">
+<td align="left">factor(nr)17</td>
+<td align="right">-0.0246613</td>
+<td align="right">0.0701815</td>
+<td align="right">-0.3513930</td>
+<td align="right">0.7253150</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="fixed-effect-model" class="section level2">
 <h2>Fixed Effect Model</h2>
@@ -285,48 +366,133 @@ fixed_effect &lt;- plm(
   log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
   data = Males.panel,
   subset = wage &gt;= 1,
+  effect = &quot;individual&quot;,
   model = &quot;within&quot;
 )</code></pre>
 <pre><code>## Warning in log(wage): NaNs produced</code></pre>
 <pre class="r"><code>fixed_effect.time &lt;- proc.time() - t
 print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.072   0.000   0.068</code></pre>
+##   0.064   0.000   0.062</code></pre>
 <pre class="r"><code>fixed_effect.result &lt;- tidy(fixed_effect)
 dim(fixed_effect.result)</code></pre>
 <pre><code>## [1] 5 5</code></pre>
 <p>In the fixed effect model, we only have 5 coefficients because the time-invariant variable(<code>ethn</code>) is cancalled out in the regression.</p>
-<pre class="r"><code>head(fixed_effect.result)</code></pre>
-<pre><code>##                   term     estimate    std.error  statistic      p.value
-## 1                exper  0.050083076 0.0034919278 14.3425289 2.330711e-45
-## 2           I(exper^2) -0.001704741 0.0002482169 -6.8679477 7.692773e-12
-## 3 I(as.integer(union))  0.037940394 0.0078563432  4.8292689 1.429904e-06
-## 4            healthyes  0.004980649 0.0195340488  0.2549727 7.987594e-01
-## 5           marriedyes  0.013462863 0.0073480076  1.8321787 6.701093e-02</code></pre>
+<pre class="r"><code>knitr::kable(fixed_effect.result)</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.0500831</td>
+<td align="right">0.0034919</td>
+<td align="right">14.3425289</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.0017047</td>
+<td align="right">0.0002482</td>
+<td align="right">-6.8679477</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">I(as.integer(union))</td>
+<td align="right">0.0379404</td>
+<td align="right">0.0078563</td>
+<td align="right">4.8292689</td>
+<td align="right">0.0000014</td>
+</tr>
+<tr class="even">
+<td align="left">healthyes</td>
+<td align="right">0.0049806</td>
+<td align="right">0.0195340</td>
+<td align="right">0.2549727</td>
+<td align="right">0.7987594</td>
+</tr>
+<tr class="odd">
+<td align="left">marriedyes</td>
+<td align="right">0.0134629</td>
+<td align="right">0.0073480</td>
+<td align="right">1.8321787</td>
+<td align="right">0.0670109</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="comparison" class="section level2">
 <h2>Comparison</h2>
-<pre class="r"><code>fixed_effect.result[,2:4] - lsdv.result[2:(nrow(fixed_effect.result) + 1),2:4]</code></pre>
-<pre><code>##        estimate     std.error     statistic
-## 1 -2.373102e-15 -1.960238e-16  1.261213e-13
-## 2  7.806256e-18 -2.331035e-18 -3.286260e-14
-## 3  7.563394e-16  8.153200e-17  4.618528e-14
-## 4 -2.565629e-01 -5.082290e-02 -3.462407e+00
-## 5 -1.577736e-01 -6.313069e-02 -5.974416e-01</code></pre>
-<p>The results of continuous variables are (almost) numerically identical. However, the results of dummy variables are different.</p>
+<pre class="r"><code>knitr::kable(fixed_effect.result[,1:3] %&gt;% left_join(lsdv.result[,1:3], by = &quot;term&quot;, suffix = c(&quot;.fixed&quot;, &quot;.lsdv&quot;)))</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate.fixed</th>
+<th align="right">std.error.fixed</th>
+<th align="right">estimate.lsdv</th>
+<th align="right">std.error.lsdv</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">exper</td>
+<td align="right">0.0500831</td>
+<td align="right">0.0034919</td>
+<td align="right">0.0500831</td>
+<td align="right">0.0034919</td>
+</tr>
+<tr class="even">
+<td align="left">I(exper^2)</td>
+<td align="right">-0.0017047</td>
+<td align="right">0.0002482</td>
+<td align="right">-0.0017047</td>
+<td align="right">0.0002482</td>
+</tr>
+<tr class="odd">
+<td align="left">I(as.integer(union))</td>
+<td align="right">0.0379404</td>
+<td align="right">0.0078563</td>
+<td align="right">0.0379404</td>
+<td align="right">0.0078563</td>
+</tr>
+<tr class="even">
+<td align="left">healthyes</td>
+<td align="right">0.0049806</td>
+<td align="right">0.0195340</td>
+<td align="right">0.0049806</td>
+<td align="right">0.0195340</td>
+</tr>
+<tr class="odd">
+<td align="left">marriedyes</td>
+<td align="right">0.0134629</td>
+<td align="right">0.0073480</td>
+<td align="right">0.0134629</td>
+<td align="right">0.0073480</td>
+</tr>
+</tbody>
+</table>
+<p>The results of continuous variables are (almost) numerically identical.</p>
 <pre class="r"><code>print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.396   0.024   1.420</code></pre>
+##   1.384   0.012   1.397</code></pre>
 <pre class="r"><code>print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.072   0.000   0.068</code></pre>
+##   0.064   0.000   0.062</code></pre>
 <pre class="r"><code>lsdv.time - fixed_effect.time</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.324   0.024   1.352</code></pre>
+##   1.320   0.012   1.335</code></pre>
 <pre class="r"><code>lsdv.time[3] / fixed_effect.time[3]</code></pre>
 <pre><code>##  elapsed 
-## 20.88235</code></pre>
-<p>In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The X matrice increases accordingly).</p>
+## 22.53226</code></pre>
+<p>In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).</p>
 </div>
 
     </div>
@@ -342,6 +508,9 @@ dim(fixed_effect.result)</code></pre>
       aria-hidden="true">&larr;</span> Quick Subset Using data.table</a></li>
     
 
+    
+    <li class="next"><a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/">Notes on the Constant Term in the Fixed Effect Model <span
+      aria-hidden="true">&rarr;</span></a></li>
     
   </ul>
 </nav>

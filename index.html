@@ -266,6 +266,68 @@
   
   
   <h3 class="article-title" itemprop="name">
+    <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" itemprop="url">Notes on the Constant Term in the Fixed Effect Model</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-07-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Mon, Jul 10, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r-learning-notes">R Learning NOtes</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    <!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<p>In stata, the fixed effect model(<code>xtreg y x1 x2 x3, fe</code>) report a constant term. The underline estimate is <span class="math display">\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]</span> with the constrant <span class="math inline">\(\bar{v}\)</span> equals to 0. Details can be found on <a href="http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/">Stata’s website</a>.</p>
+<p>In R, <code>plm</code> package does not calculate the <code>some whate artificial</code>^1 intercept for within models.</p>
+<p>^1 see help(“within_intercept”, package = “plm”)</p>
+
+    
+  </div>
+  <p class="read-more">
+    <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
     <a href="/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/" itemprop="url">Least Square Dummy Variable Regression V.S. Fixed Effect Model</a>
   </h3>
   
@@ -494,75 +556,6 @@
   </div>
   <p class="read-more">
     <a href="/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
-    <a href="/post/2017-02-17-coerce-ifelse-classt/" itemprop="url">Coercing the class of ifelse results</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-02-17 18:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Fri, Feb 17, 2017
-    </time>
-  </span>
-
-  
-
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
-<pre class="r"><code>test_fn &lt;- function(x){
-  ifelse(x &gt; 0,
-         &quot;Positive&quot;,
-         &quot;Not positive&quot;)
-}
-class(test_fn(1))</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>class(test_fn(NA))</code></pre>
-<pre><code>## [1] &quot;logical&quot;</code></pre>
-<p>To avoid this problem, we have two solutions:</p>
-<ol style="list-style-type: decimal">
-<li>coerce the class explicitly</li>
-<li>Use <code>dplyr::if_else</code></li>
-</ol>
-<pre class="r"><code>test_fn2 &lt;- function(x){
-  dplyr::if_else(x &gt; 0,
-         &quot;Positive&quot;,
-         &quot;Not positive&quot;)
-}
-class(test_fn2(1))</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-<pre class="r"><code>class(test_fn2(NA))</code></pre>
-<pre><code>## [1] &quot;character&quot;</code></pre>
-
-    
-  </div>
-  <p class="read-more">
-    <a href="/post/2017-02-17-coerce-ifelse-classt/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
