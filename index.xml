@@ -21,8 +21,13 @@
 &lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
 
 &lt;p&gt;In stata, the fixed effect model(&lt;code&gt;xtreg y x1 x2 x3, fe&lt;/code&gt;) report a constant term. The underline estimate is &lt;span class=&#34;math display&#34;&gt;\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]&lt;/span&gt; with the constrant &lt;span class=&#34;math inline&#34;&gt;\(\bar{v}\)&lt;/span&gt; equals to 0. Details can be found on &lt;a href=&#34;http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/&#34;&gt;Stata’s website&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;In R, &lt;code&gt;plm&lt;/code&gt; package does not calculate the &lt;code&gt;some whate artificial&lt;/code&gt;^1 intercept for within models.&lt;/p&gt;
-&lt;p&gt;^1 see help(“within_intercept”, package = “plm”)&lt;/p&gt;
+&lt;p&gt;In R, &lt;code&gt;plm&lt;/code&gt; package does not calculate the &lt;code&gt;some whate artificial&lt;/code&gt;&lt;a href=&#34;#fn1&#34; class=&#34;footnoteRef&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; intercept for within models.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+&lt;hr /&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;see help(“within_intercept”, package = “plm”)&lt;a href=&#34;#fnref1&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 </description>
     </item>
     
