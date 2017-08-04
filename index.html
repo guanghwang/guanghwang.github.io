@@ -266,6 +266,64 @@
   
   
   <h3 class="article-title" itemprop="name">
+    <a href="/post/tips-to-avoid-mysterious-bugs/" itemprop="url">Tips to avoid mysterious bugs</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-08-04 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Fri, Aug 4, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    <!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<p>Don’t use the same for the data.frame and variables in it.</p>
+<pre class="r"><code>library(data.table)</code></pre>
+<pre class="r"><code>a &lt;- data.table(a = c(1,2,3,1,2,3), b = c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;, &quot;b&quot;,&quot;a&quot;, &quot;b&quot;))</code></pre>
+<pre class="r"><code>b &lt;- a[b == &quot;b&quot;]</code></pre>
+<p><code>data.table</code> cannot distinguish which <code>b</code> is. <code>b</code> represents <strong>data.table</strong> <code>b</code> and the <strong>variable</strong> <code>b</code> in data.table <code>a</code>.</p>
+<pre class="r"><code>a[a %in% b$a]</code></pre>
+<pre><code>Error in b$a : $ operator is invalid for atomic vectors</code></pre>
+
+    
+  </div>
+  <p class="read-more">
+    <a href="/post/tips-to-avoid-mysterious-bugs/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
     <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" itemprop="url">Notes on the Constant Term in the Fixed Effect Model</a>
   </h3>
   
@@ -476,81 +534,6 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
   </div>
   <p class="read-more">
     <a href="/post/2017-06-18-na-action-of-filter-of-dplyr/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
-    <a href="/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-02-18 20:50:00 &#43;0000 UTC" itemprop="datePublished">
-      Sat, Feb 18, 2017
-    </time>
-  </span>
-
-  
-  
-  
-  <span class="article-categories">
-    <i class="fa fa-folder"></i>
-    
-    <a href="/categories/tech">Tech</a
-    >
-    
-  </span>
-  
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/r">R</a
-    >, 
-    
-    <a href="/tags/r-markdown">R Markdown</a
-    >, 
-    
-    <a href="/tags/r-blogdown">R Blogdown</a
-    >, 
-    
-    <a href="/tags/hugo">Hugo</a
-    >, 
-    
-    <a href="/tags/github">github</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    <p>My personal website is created by R package <code>blogdown</code> and <code>Hugo</code> and is hosted on Github. This page summarise my steps to create this site.</p>
-    
-  </div>
-  <p class="read-more">
-    <a href="/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>

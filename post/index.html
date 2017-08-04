@@ -114,6 +114,51 @@
   
   <div>
     
+    <h2><a href="/post/tips-to-avoid-mysterious-bugs/">Tips to avoid mysterious bugs</a></h2>
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2017-08-04 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Fri, Aug 4, 2017
+    </time>
+  </span>
+
+  
+  
+  
+  
+
+  
+  
+  
+  
+
+  
+
+</div>
+
+    <div class="article-style"><p>
+      
+      <!-- BLOGDOWN-BODY-BEFORE -->
+
+<!-- /BLOGDOWN-BODY-BEFORE -->
+
+<p>Don’t use the same for the data.frame and variables in it.</p>
+<pre class="r"><code>library(data.table)</code></pre>
+<pre class="r"><code>a &lt;- data.table(a = c(1,2,3,1,2,3), b = c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;, &quot;b&quot;,&quot;a&quot;, &quot;b&quot;))</code></pre>
+<pre class="r"><code>b &lt;- a[b == &quot;b&quot;]</code></pre>
+<p><code>data.table</code> cannot distinguish which <code>b</code> is. <code>b</code> represents <strong>data.table</strong> <code>b</code> and the <strong>variable</strong> <code>b</code> in data.table <code>a</code>.</p>
+<pre class="r"><code>a[a %in% b$a]</code></pre>
+<pre><code>Error in b$a : $ operator is invalid for atomic vectors</code></pre>
+
+      
+    </p></div>
+  </div>
+  
+  <div>
+    
     <h2><a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/">Notes on the Constant Term in the Fixed Effect Model</a></h2>
     
 
@@ -524,37 +569,6 @@ class(test_fn2(1))</code></pre>
     <div class="article-style"><p>
       
       This is a brief guide to managing content with the Academic framework. Content can include publications, projects, talks, and news/blog articles. After you have read this guide about creating and managing content, you may also be interested to learn about <a href="/post/writing-markdown-latex/" target="_blank">writing content with Markdown, LaTeX, and Shortcodes</a>.
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="/post/writing-markdown-latex/">Writing content with Markdown, LaTeX, and Shortcodes</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 10:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      Content can be written using <a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">Markdown</a>, <a href="https://en.wikibooks.org/wiki/LaTeX/Mathematics" target="_blank">LaTeX math</a>, and <a href="http://gohugo.io/extras/shortcodes/" target="_blank">Hugo Shortcodes</a>. Additionally, HTML may be used for advanced formatting. This article gives an overview of the most common formatting options.
       
     </p></div>
   </div>

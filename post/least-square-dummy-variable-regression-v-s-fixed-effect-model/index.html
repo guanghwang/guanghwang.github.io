@@ -275,7 +275,7 @@ lsdv &lt;- lm(
 <pre class="r"><code>lsdv.time &lt;- proc.time() - t
 print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.384   0.012   1.397</code></pre>
+##   1.372   0.032   1.406</code></pre>
 <pre class="r"><code>lsdv.result &lt;- tidy(lsdv)
 dim(lsdv.result)</code></pre>
 <pre><code>## [1] 549   5</code></pre>
@@ -357,6 +357,12 @@ dim(lsdv.result)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>lsdv.residual_square &lt;- sum((lsdv$residuals)^2)
+glance(lsdv)</code></pre>
+<pre><code>##   r.squared adj.r.squared     sigma statistic p.value  df   logLik
+## 1 0.7123676     0.6666931 0.1353907  15.59663       0 549 2617.868
+##         AIC       BIC deviance df.residual
+## 1 -4135.736 -674.0087 63.25907        3451</code></pre>
 </div>
 <div id="fixed-effect-model" class="section level2">
 <h2>Fixed Effect Model</h2>
@@ -373,7 +379,7 @@ fixed_effect &lt;- plm(
 <pre class="r"><code>fixed_effect.time &lt;- proc.time() - t
 print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.064   0.000   0.062</code></pre>
+##   0.140   0.004   0.142</code></pre>
 <pre class="r"><code>fixed_effect.result &lt;- tidy(fixed_effect)
 dim(fixed_effect.result)</code></pre>
 <pre><code>## [1] 5 5</code></pre>
@@ -427,6 +433,10 @@ dim(fixed_effect.result)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>fixed_effect.residual_square &lt;- sum((fixed_effect$residuals)^2)
+glance(fixed_effect)</code></pre>
+<pre><code>##   r.squared adj.r.squared statistic       p.value deviance df.residual
+## 1 0.2186536    0.09458001   193.147 6.996476e-182 63.25907        3451</code></pre>
 </div>
 <div id="comparison" class="section level2">
 <h2>Comparison</h2>
@@ -479,19 +489,22 @@ dim(fixed_effect.result)</code></pre>
 </tr>
 </tbody>
 </table>
-<p>The results of continuous variables are (almost) numerically identical.</p>
+<p>The results of continuous variables are (almost) numerically identical. <code>plm</code> ajust the se by defult.</p>
+<pre class="r"><code>fixed_effect.residual_square - lsdv.residual_square</code></pre>
+<pre><code>## [1] 7.105427e-15</code></pre>
+<p>The sum of residual squares are identical too.</p>
 <pre class="r"><code>print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.384   0.012   1.397</code></pre>
+##   1.372   0.032   1.406</code></pre>
 <pre class="r"><code>print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.064   0.000   0.062</code></pre>
+##   0.140   0.004   0.142</code></pre>
 <pre class="r"><code>lsdv.time - fixed_effect.time</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.320   0.012   1.335</code></pre>
+##   1.232   0.028   1.264</code></pre>
 <pre class="r"><code>lsdv.time[3] / fixed_effect.time[3]</code></pre>
 <pre><code>##  elapsed 
-## 22.53226</code></pre>
+## 9.901408</code></pre>
 <p>In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).</p>
 </div>
 

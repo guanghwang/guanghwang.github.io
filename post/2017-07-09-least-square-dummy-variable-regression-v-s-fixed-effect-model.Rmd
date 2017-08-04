@@ -51,6 +51,12 @@ In the LSDV model, the final result includes a set of individual dummies.
 knitr::kable(head(lsdv.result, 9))
 ```
 
+```{r lsdv residual and df.residual}
+lsdv.residual_square <- sum((lsdv$residuals)^2)
+glance(lsdv)
+```
+
+
 ## Fixed Effect Model
 ```{r fixed effect model}
 Males.panel <- plm.data(Males, indexes = c("nr", "year"))
@@ -74,12 +80,23 @@ In the fixed effect model, we only have 5 coefficients because the time-invarian
 knitr::kable(fixed_effect.result)
 ```
 
+```{r fixed effect residual}
+fixed_effect.residual_square <- sum((fixed_effect$residuals)^2)
+glance(fixed_effect)
+```
+
+
 ## Comparison
-```{r comparison}
+```{r comparison main result}
 knitr::kable(fixed_effect.result[,1:3] %>% left_join(lsdv.result[,1:3], by = "term", suffix = c(".fixed", ".lsdv")))
 ```
 
-The results of continuous variables are (almost) numerically identical.
+The results of continuous variables are (almost) numerically identical. `plm` ajust the se by defult. 
+```{r comparison residuals}
+fixed_effect.residual_square - lsdv.residual_square
+```
+
+The sum of residual squares are identical too.
 
 ```{r comparison time}
 print(lsdv.time)

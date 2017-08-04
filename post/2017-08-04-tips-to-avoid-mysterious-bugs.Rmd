@@ -1,0 +1,29 @@
+---
+title: Tips to avoid mysterious bugs
+author: Guanghua Wang
+date: '2017-08-04'
+slug: tips-to-avoid-mysterious-bugs
+categories: []
+tags: []
+---
+
+Don't use the same for the data.frame and variables in it.
+
+```{r setup}
+library(data.table)
+```
+
+```{r data.table}
+a <- data.table(a = c(1,2,3,1,2,3), b = c("a", "b", "a", "b","a", "b"))
+```
+
+```{r subset}
+b <- a[b == "b"]
+```
+
+`data.table` cannot distinguish which `b` is. `b` represents **data.table** `b` and the **variable** `b` in data.table `a`.
+```{r subset using b, eval=FALSE, include=TRUE}
+a[a %in% b$a]
+```
+
+    Error in b$a : $ operator is invalid for atomic vectors

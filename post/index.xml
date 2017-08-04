@@ -11,6 +11,26 @@
     <atom:link href="/post/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Tips to avoid mysterious bugs</title>
+      <link>/post/tips-to-avoid-mysterious-bugs/</link>
+      <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/tips-to-avoid-mysterious-bugs/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Don’t use the same for the data.frame and variables in it.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(data.table)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;a &amp;lt;- data.table(a = c(1,2,3,1,2,3), b = c(&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;, &amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;,&amp;quot;a&amp;quot;, &amp;quot;b&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;b &amp;lt;- a[b == &amp;quot;b&amp;quot;]&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;code&gt;data.table&lt;/code&gt; cannot distinguish which &lt;code&gt;b&lt;/code&gt; is. &lt;code&gt;b&lt;/code&gt; represents &lt;strong&gt;data.table&lt;/strong&gt; &lt;code&gt;b&lt;/code&gt; and the &lt;strong&gt;variable&lt;/strong&gt; &lt;code&gt;b&lt;/code&gt; in data.table &lt;code&gt;a&lt;/code&gt;.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;a[a %in% b$a]&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;Error in b$a : $ operator is invalid for atomic vectors&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Notes on the Constant Term in the Fixed Effect Model</title>
       <link>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</link>
       <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
@@ -116,7 +136,7 @@ lsdv &amp;lt;- lm(
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time &amp;lt;- proc.time() - t
 print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.384   0.012   1.397&lt;/code&gt;&lt;/pre&gt;
+##   1.372   0.032   1.406&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.result &amp;lt;- tidy(lsdv)
 dim(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 549   5&lt;/code&gt;&lt;/pre&gt;
@@ -198,6 +218,12 @@ dim(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.residual_square &amp;lt;- sum((lsdv$residuals)^2)
+glance(lsdv)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   r.squared adj.r.squared     sigma statistic p.value  df   logLik
+## 1 0.7123676     0.6666931 0.1353907  15.59663       0 549 2617.868
+##         AIC       BIC deviance df.residual
+## 1 -4135.736 -674.0087 63.25907        3451&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;fixed-effect-model&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Fixed Effect Model&lt;/h2&gt;
@@ -214,7 +240,7 @@ fixed_effect &amp;lt;- plm(
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.time &amp;lt;- proc.time() - t
 print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.064   0.000   0.062&lt;/code&gt;&lt;/pre&gt;
+##   0.140   0.004   0.142&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result &amp;lt;- tidy(fixed_effect)
 dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5 5&lt;/code&gt;&lt;/pre&gt;
@@ -268,6 +294,10 @@ dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.residual_square &amp;lt;- sum((fixed_effect$residuals)^2)
+glance(fixed_effect)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##   r.squared adj.r.squared statistic       p.value deviance df.residual
+## 1 0.2186536    0.09458001   193.147 6.996476e-182 63.25907        3451&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;comparison&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Comparison&lt;/h2&gt;
@@ -320,19 +350,22 @@ dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;The results of continuous variables are (almost) numerically identical.&lt;/p&gt;
+&lt;p&gt;The results of continuous variables are (almost) numerically identical. &lt;code&gt;plm&lt;/code&gt; ajust the se by defult.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.residual_square - lsdv.residual_square&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## [1] 7.105427e-15&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The sum of residual squares are identical too.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.384   0.012   1.397&lt;/code&gt;&lt;/pre&gt;
+##   1.372   0.032   1.406&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.064   0.000   0.062&lt;/code&gt;&lt;/pre&gt;
+##   0.140   0.004   0.142&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time - fixed_effect.time&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.320   0.012   1.335&lt;/code&gt;&lt;/pre&gt;
+##   1.232   0.028   1.264&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time[3] / fixed_effect.time[3]&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##  elapsed 
-## 22.53226&lt;/code&gt;&lt;/pre&gt;
+## 9.901408&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).&lt;/p&gt;
 &lt;/div&gt;
 </description>
