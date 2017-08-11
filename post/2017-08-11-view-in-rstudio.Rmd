@@ -1,0 +1,12 @@
+---
+title: '`View()` in Rstudio'
+author: Guanghua Wang
+date: '2017-08-11'
+slug: view-in-rstudio
+categories: []
+tags: []
+---
+
+Rstudio provides `view()` function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by **100** in the view panel.
+
+The office introduction of `View()`.[link](https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer)

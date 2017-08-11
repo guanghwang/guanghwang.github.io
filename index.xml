@@ -11,6 +11,21 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>`View()` in Rstudio</title>
+      <link>/post/view-in-rstudio/</link>
+      <pubDate>Fri, 11 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/view-in-rstudio/</guid>
+      <description>&lt;!-- BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;!-- /BLOGDOWN-BODY-BEFORE --&gt;
+
+&lt;p&gt;Rstudio provides &lt;code&gt;view()&lt;/code&gt; function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by &lt;strong&gt;100&lt;/strong&gt; in the view panel.&lt;/p&gt;
+&lt;p&gt;The office introduction of &lt;code&gt;View()&lt;/code&gt;.&lt;a href=&#34;https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer&#34;&gt;link&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Tips to avoid mysterious bugs</title>
       <link>/post/tips-to-avoid-mysterious-bugs/</link>
       <pubDate>Fri, 04 Aug 2017 00:00:00 +0000</pubDate>
@@ -1443,16 +1458,6 @@ Here&#39;s some important information...
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;&lt;sup&gt;^&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;</description>
-    </item>
-    
-    <item>
-      <title>A Person Re-Identification System For Mobile Devices</title>
-      <link>/publication/person-re-identification/</link>
-      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      
-      <guid>/publication/person-re-identification/</guid>
-      <description>&lt;p&gt;More detail can easily be written here using &lt;em&gt;Markdown&lt;/em&gt; and $\rm \LaTeX$ math code.&lt;/p&gt;
-</description>
     </item>
     
   </channel>
