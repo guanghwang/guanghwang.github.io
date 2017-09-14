@@ -1,0 +1,20 @@
+---
+title: Cluster Standard Error Using R
+author: Guanghua Wang
+date: '2017-09-14'
+slug: cluster-standard-error-using-r
+categories: []
+tags: []
+---
+
+`sandwich` package is great for correcting heteroskedesticity and autocorrelation, as well as for clustering standard error.
+
+There are several instructions online talking about how to cluster standard errors in `lm` and `plm` setups. All of them mentioned that the degree of freedom needs to be corrected. 
+
+However, in the newest `sandwich` version: 2.40, the new fucntion, `vcovCL`, includes the option of degree correction.
+
+Here is the [change log](https://cran.r-project.org/web/packages/sandwich/NEWS) of version 2.40
+
+    Various flavors of clustered sandwich estimators in vcovCL(), panel sandwich estimators in vcovPL(), and panel-corrected estimators a la Beck & Katz in vcovPC(). The new vignette("sandwich-CL", package = "sandwich") introduces all functions and illustrates their use and properties.
+    
+    The new function vcovBS() provides a basic (clustered) bootstrap covariance matrix estimate, using case-based resampling.
