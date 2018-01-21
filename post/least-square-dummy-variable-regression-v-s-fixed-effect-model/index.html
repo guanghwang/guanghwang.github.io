@@ -199,14 +199,9 @@
       <p>In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.</p>
 <pre class="r"><code>if (!require(plm)) install.packages(&quot;plm&quot;)</code></pre>
 <pre><code>## Loading required package: plm</code></pre>
-<pre><code>## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-## logical.return = TRUE, : there is no package called &#39;plm&#39;</code></pre>
-<pre><code>## Installing package into &#39;/home/guanghua/Documents/blog/blog-hugo/packrat/lib/x86_64-pc-linux-gnu/3.4.1&#39;
-## (as &#39;lib&#39; is unspecified)</code></pre>
-<pre><code>## also installing the dependencies &#39;miscTools&#39;, &#39;maxLik&#39;</code></pre>
-<pre class="r"><code>library(plm)</code></pre>
 <pre><code>## Loading required package: Formula</code></pre>
-<pre class="r"><code>if (!require(broom)) install.packages(&quot;broom&quot;)</code></pre>
+<pre class="r"><code>library(plm)
+if (!require(broom)) install.packages(&quot;broom&quot;)</code></pre>
 <pre><code>## Loading required package: broom</code></pre>
 <pre class="r"><code>library(broom)
 data(package = &quot;plm&quot;)
@@ -276,7 +271,7 @@ lsdv &lt;- lm(
 <pre class="r"><code>lsdv.time &lt;- proc.time() - t
 print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.326   0.016   1.344</code></pre>
+##   1.299   0.008   1.307</code></pre>
 <pre class="r"><code>lsdv.result &lt;- tidy(lsdv)
 dim(lsdv.result)</code></pre>
 <pre><code>## [1] 549   5</code></pre>
@@ -381,7 +376,7 @@ fixed_effect &lt;- plm(
 <pre class="r"><code>fixed_effect.time &lt;- proc.time() - t
 print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.278   0.004   0.281</code></pre>
+##   0.277   0.008   0.286</code></pre>
 <pre class="r"><code>fixed_effect.result &lt;- tidy(fixed_effect)
 dim(fixed_effect.result)</code></pre>
 <pre><code>## [1] 5 5</code></pre>
@@ -497,16 +492,16 @@ glance(fixed_effect)</code></pre>
 <p>The sum of residual squares are identical too.</p>
 <pre class="r"><code>print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.326   0.016   1.344</code></pre>
+##   1.299   0.008   1.307</code></pre>
 <pre class="r"><code>print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.278   0.004   0.281</code></pre>
+##   0.277   0.008   0.286</code></pre>
 <pre class="r"><code>lsdv.time - fixed_effect.time</code></pre>
-<pre><code>##    user  system elapsed 
-##   1.048   0.012   1.063</code></pre>
+<pre><code>##         user       system      elapsed 
+## 1.022000e+00 6.938894e-18 1.021000e+00</code></pre>
 <pre class="r"><code>lsdv.time[3] / fixed_effect.time[3]</code></pre>
-<pre><code>##  elapsed 
-## 4.782918</code></pre>
+<pre><code>## elapsed 
+## 4.56993</code></pre>
 <p>In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).</p>
 </div>
 
@@ -607,6 +602,11 @@ glance(fixed_effect)</code></pre>
     
 
     
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
     
 
   </body>

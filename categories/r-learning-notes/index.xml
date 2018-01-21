@@ -19,7 +19,7 @@
       
       <guid>/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/</guid>
       <description>In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.
-if (!require(plm)) install.packages(&amp;quot;plm&amp;quot;) ## Loading required package: plm ## Warning in library(package, lib.loc = lib.loc, character.only = TRUE, ## logical.return = TRUE, : there is no package called &amp;#39;plm&amp;#39; ## Installing package into &amp;#39;/home/guanghua/Documents/blog/blog-hugo/packrat/lib/x86_64-pc-linux-gnu/3.</description>
+if (!require(plm)) install.packages(&amp;quot;plm&amp;quot;) ## Loading required package: plm ## Loading required package: Formula library(plm) if (!require(broom)) install.packages(&amp;quot;broom&amp;quot;) ## Loading required package: broom library(broom) data(package = &amp;quot;plm&amp;quot;) library(dplyr) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:plm&amp;#39;: ## ## between, lag, lead ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union Data Desciption I use Males dataset as an example.</description>
     </item>
     
     <item>

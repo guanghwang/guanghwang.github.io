@@ -129,14 +129,9 @@ The new function vcovBS() provides a basic (clustered) bootstrap covariance matr
       <description>&lt;p&gt;In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(plm)) install.packages(&amp;quot;plm&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: plm&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
-## logical.return = TRUE, : there is no package called &amp;#39;plm&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Installing package into &amp;#39;/home/guanghua/Documents/blog/blog-hugo/packrat/lib/x86_64-pc-linux-gnu/3.4.1&amp;#39;
-## (as &amp;#39;lib&amp;#39; is unspecified)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## also installing the dependencies &amp;#39;miscTools&amp;#39;, &amp;#39;maxLik&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plm)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: Formula&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;if (!require(broom)) install.packages(&amp;quot;broom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(plm)
+if (!require(broom)) install.packages(&amp;quot;broom&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Loading required package: broom&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(broom)
 data(package = &amp;quot;plm&amp;quot;)
@@ -206,7 +201,7 @@ lsdv &amp;lt;- lm(
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time &amp;lt;- proc.time() - t
 print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.326   0.016   1.344&lt;/code&gt;&lt;/pre&gt;
+##   1.299   0.008   1.307&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.result &amp;lt;- tidy(lsdv)
 dim(lsdv.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 549   5&lt;/code&gt;&lt;/pre&gt;
@@ -311,7 +306,7 @@ fixed_effect &amp;lt;- plm(
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.time &amp;lt;- proc.time() - t
 print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.278   0.004   0.281&lt;/code&gt;&lt;/pre&gt;
+##   0.277   0.008   0.286&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;fixed_effect.result &amp;lt;- tidy(fixed_effect)
 dim(fixed_effect.result)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## [1] 5 5&lt;/code&gt;&lt;/pre&gt;
@@ -427,16 +422,16 @@ glance(fixed_effect)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;The sum of residual squares are identical too.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(lsdv.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.326   0.016   1.344&lt;/code&gt;&lt;/pre&gt;
+##   1.299   0.008   1.307&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;print(fixed_effect.time)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.278   0.004   0.281&lt;/code&gt;&lt;/pre&gt;
+##   0.277   0.008   0.286&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time - fixed_effect.time&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   1.048   0.012   1.063&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;##         user       system      elapsed 
+## 1.022000e+00 6.938894e-18 1.021000e+00&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;lsdv.time[3] / fixed_effect.time[3]&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;##  elapsed 
-## 4.782918&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## elapsed 
+## 4.56993&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).&lt;/p&gt;
 &lt;/div&gt;
 </description>
@@ -493,7 +488,7 @@ tmp1 &amp;lt;- populationDT[
 ]
 proc.time() - t&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.054   0.008   0.061&lt;/code&gt;&lt;/pre&gt;
+##   0.063   0.000   0.061&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-.i-methond-in-data.table&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The .I Methond in &lt;code&gt;data.table&lt;/code&gt;&lt;/h2&gt;
@@ -503,7 +498,7 @@ tmp2 &amp;lt;- populationDT[
 ]
 proc.time() - t&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.008   0.000   0.008&lt;/code&gt;&lt;/pre&gt;
+##   0.009   0.000   0.008&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;the-dplyr-method&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The &lt;code&gt;dplyr&lt;/code&gt; method&lt;/h2&gt;
@@ -514,7 +509,7 @@ tmp3 &amp;lt;- population %&amp;gt;%
   ungroup()
 proc.time() - t&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;##    user  system elapsed 
-##   0.088   0.000   0.088&lt;/code&gt;&lt;/pre&gt;
+##   0.053   0.000   0.053&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div id=&#34;whether-is-the-fianl-data-identical&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Whether Is the Fianl Data Identical?&lt;/h2&gt;

@@ -241,7 +241,7 @@ tmp1 &lt;- populationDT[
 ]
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.054   0.008   0.061</code></pre>
+##   0.063   0.000   0.061</code></pre>
 </div>
 <div id="the-.i-methond-in-data.table" class="section level2">
 <h2>The .I Methond in <code>data.table</code></h2>
@@ -251,7 +251,7 @@ tmp2 &lt;- populationDT[
 ]
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.008   0.000   0.008</code></pre>
+##   0.009   0.000   0.008</code></pre>
 </div>
 <div id="the-dplyr-method" class="section level2">
 <h2>The <code>dplyr</code> method</h2>
@@ -262,7 +262,7 @@ tmp3 &lt;- population %&gt;%
   ungroup()
 proc.time() - t</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.088   0.000   0.088</code></pre>
+##   0.053   0.000   0.053</code></pre>
 </div>
 <div id="whether-is-the-fianl-data-identical" class="section level2">
 <h2>Whether Is the Fianl Data Identical?</h2>
@@ -370,6 +370,11 @@ proc.time() - t</code></pre>
     
 
     
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    <script async src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML"></script>
     
 
   </body>
