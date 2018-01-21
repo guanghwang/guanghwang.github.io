@@ -63,7 +63,7 @@ a[a %in% b$a] Error in b$a : $ operator is invalid for atomic vectors </descript
       <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</guid>
-      <description>In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is \[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\] with the constrant \(\bar{v}\) equals to 0. Details can be found on Stata’s website.
+      <description>In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is \[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar{\bar{x}})) \alpha + (\epsilon_{it} - \bar{e_i} + \bar{v})\] with the constrant \(\bar{v}\) equals to 0. Details can be found on Stata’s website.
 In R, plm package does not calculate the some whate artificial1 intercept for within models.
  see help(“within_intercept”, package = “plm”)↩</description>
     </item>

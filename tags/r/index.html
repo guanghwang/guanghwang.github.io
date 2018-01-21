@@ -128,7 +128,7 @@
     <h2><a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/">Notes on the Constant Term in the Fixed Effect Model</a></h2>
     <div class="article-style">
       
-      In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is [y<em>{it} - \bar{yr} + \bar{\bar{y}} = a + (x</em>{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)] with the constrant (\bar{v}) equals to 0. Details can be found on Stata’s website.
+      In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is [y<em>{it} - \bar{yr} + \bar{\bar{y}} = a + (x</em>{it} - \bar{x<em>{i}} + \bar{\bar{x}})) \alpha + (\epsilon</em>{it} - \bar{e_i} + \bar{v})] with the constrant (\bar{v}) equals to 0. Details can be found on Stata’s website.
 In R, plm package does not calculate the some whate artificial1 intercept for within models.
  see help(“within_intercept”, package = “plm”)↩
       
