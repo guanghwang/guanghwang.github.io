@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -196,16 +196,17 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.</p>
+      <p>In the panle regression setup, the coefficients in the Least Square Dummy Variable model is identical to that in the Fixed Effect Model. However, the computing time needed is much less in the Fixed Effect Model than the time in the Least Square Dummy Variable Model.</p>
 <pre class="r"><code>if (!require(plm)) install.packages(&quot;plm&quot;)</code></pre>
 <pre><code>## Loading required package: plm</code></pre>
+<pre><code>## Warning in library(package, lib.loc = lib.loc, character.only = TRUE,
+## logical.return = TRUE, : there is no package called &#39;plm&#39;</code></pre>
+<pre><code>## Installing package into &#39;/home/guanghua/Documents/blog/blog-hugo/packrat/lib/x86_64-pc-linux-gnu/3.4.1&#39;
+## (as &#39;lib&#39; is unspecified)</code></pre>
+<pre><code>## also installing the dependencies &#39;miscTools&#39;, &#39;maxLik&#39;</code></pre>
+<pre class="r"><code>library(plm)</code></pre>
 <pre><code>## Loading required package: Formula</code></pre>
-<pre class="r"><code>library(plm)
-if (!require(broom)) install.packages(&quot;broom&quot;)</code></pre>
+<pre class="r"><code>if (!require(broom)) install.packages(&quot;broom&quot;)</code></pre>
 <pre><code>## Loading required package: broom</code></pre>
 <pre class="r"><code>library(broom)
 data(package = &quot;plm&quot;)
@@ -275,7 +276,7 @@ lsdv &lt;- lm(
 <pre class="r"><code>lsdv.time &lt;- proc.time() - t
 print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.372   0.032   1.406</code></pre>
+##   1.326   0.016   1.344</code></pre>
 <pre class="r"><code>lsdv.result &lt;- tidy(lsdv)
 dim(lsdv.result)</code></pre>
 <pre><code>## [1] 549   5</code></pre>
@@ -366,8 +367,9 @@ glance(lsdv)</code></pre>
 </div>
 <div id="fixed-effect-model" class="section level2">
 <h2>Fixed Effect Model</h2>
-<pre class="r"><code>Males.panel &lt;- plm.data(Males, indexes = c(&quot;nr&quot;, &quot;year&quot;))
-t &lt;- proc.time()
+<pre class="r"><code>Males.panel &lt;- plm.data(Males, indexes = c(&quot;nr&quot;, &quot;year&quot;))</code></pre>
+<pre><code>## Warning: use of &#39;plm.data&#39; is discouraged, better use &#39;pdata.frame&#39; instead</code></pre>
+<pre class="r"><code>t &lt;- proc.time()
 fixed_effect &lt;- plm(
   log(wage) ~ exper + I(exper^2) + I(as.integer(union)) + ethn + health + married,
   data = Males.panel,
@@ -379,7 +381,7 @@ fixed_effect &lt;- plm(
 <pre class="r"><code>fixed_effect.time &lt;- proc.time() - t
 print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.140   0.004   0.142</code></pre>
+##   0.278   0.004   0.281</code></pre>
 <pre class="r"><code>fixed_effect.result &lt;- tidy(fixed_effect)
 dim(fixed_effect.result)</code></pre>
 <pre><code>## [1] 5 5</code></pre>
@@ -495,16 +497,16 @@ glance(fixed_effect)</code></pre>
 <p>The sum of residual squares are identical too.</p>
 <pre class="r"><code>print(lsdv.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.372   0.032   1.406</code></pre>
+##   1.326   0.016   1.344</code></pre>
 <pre class="r"><code>print(fixed_effect.time)</code></pre>
 <pre><code>##    user  system elapsed 
-##   0.140   0.004   0.142</code></pre>
+##   0.278   0.004   0.281</code></pre>
 <pre class="r"><code>lsdv.time - fixed_effect.time</code></pre>
 <pre><code>##    user  system elapsed 
-##   1.232   0.028   1.264</code></pre>
+##   1.048   0.012   1.063</code></pre>
 <pre class="r"><code>lsdv.time[3] / fixed_effect.time[3]</code></pre>
 <pre><code>##  elapsed 
-## 9.901408</code></pre>
+## 4.782918</code></pre>
 <p>In this example, fixed effect model is 13 times faster than LSDV. Notice the individuals in my sample is 545. As individuals increases, the computing time increase dramatically. (The (X + D) matrix increases accordingly).</p>
 </div>
 
@@ -532,6 +534,31 @@ glance(fixed_effect)</code></pre>
 
 <div class="article-container">
   
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-pkpqgdhgtu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</section>
+
 
 </div>
 

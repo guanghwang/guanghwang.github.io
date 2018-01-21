@@ -3,8 +3,8 @@ title: Notes on the Constant Term in the Fixed Effect Model
 author: Guanghua Wang
 date: '2017-07-10'
 slug: notes-on-the-constant-term-in-the-fixed-effect-model
-categories: ["R Learning NOtes"]
-tags: []
+categories: ["R notes"]
+tags: ["R"]
 ---
 
 In stata, the fixed effect model(`xtreg y x1 x2 x3, fe`) report a constant term. The underline estimate is

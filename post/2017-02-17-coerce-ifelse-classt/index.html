@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -174,11 +174,7 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
+      <p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
 <pre class="r"><code>test_fn &lt;- function(x){
   ifelse(x &gt; 0,
          &quot;Positive&quot;,
@@ -227,6 +223,31 @@ class(test_fn2(1))</code></pre>
 
 <div class="article-container">
   
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-pkpqgdhgtu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</section>
+
 
 </div>
 

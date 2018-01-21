@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Columnwise on Guanghua</title>
+    <link>/tags/columnwise/</link>
+    <description>Recent content in Columnwise on Guanghua</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
+    <lastBuildDate>Sun, 21 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/columnwise/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Puzzle of Conditions in dplyr</title>
+      <link>/post/puzzle-of-conditions-in-dplyr/</link>
+      <pubDate>Sun, 21 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/puzzle-of-conditions-in-dplyr/</guid>
+      <description>Puzzle I am not sure how do I condition on whether a value in column A appears in column B?
+I use the naive way
+value A %in% column B within a mutate function. It workers such that R would search all values in column B. What’s more, it even works within groups. However, I not sure whether it is a luck or a right way to do it?
+ Example library(dplyr, warn.</description>
+    </item>
+    
+  </channel>
+</rss>

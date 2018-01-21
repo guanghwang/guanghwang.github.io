@@ -8,7 +8,45 @@
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
     <lastBuildDate>Sat, 18 Feb 2017 21:10:00 +0000</lastBuildDate>
-    <atom:link href="/home/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="/home/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>/home/about/</link>
+      <pubDate>Sat, 18 Feb 2017 21:10:00 +0000</pubDate>
+      
+      <guid>/home/about/</guid>
+      <description>Biography My personal website is under construction. Please check it later.</description>
+    </item>
+    
+    <item>
+      <title>Recent Posts</title>
+      <link>/home/posts/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/home/posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R Study Notes</title>
+      <link>/home/rstudy/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/home/rstudy/</guid>
+      <description>This is a collection of posts related to R.</description>
+    </item>
+    
+    <item>
+      <title>Contact</title>
+      <link>/home/contact/</link>
+      <pubDate>Wed, 20 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/home/contact/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>

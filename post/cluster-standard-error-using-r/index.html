@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -180,11 +180,7 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p><code>sandwich</code> package is great for correcting heteroskedesticity and autocorrelation, as well as for clustering standard error.</p>
+      <p><code>sandwich</code> package is great for correcting heteroskedesticity and autocorrelation, as well as for clustering standard error.</p>
 <p>There are several instructions online talking about how to cluster standard errors in <code>lm</code> and <code>plm</code> setups. All of them mentioned that the degree of freedom needs to be corrected.</p>
 <p>However, in the newest <code>sandwich</code> version: 2.40, the new fucntion, <code>vcovCL</code>, includes the option of degree correction.</p>
 <p>Here is the <a href="https://cran.r-project.org/web/packages/sandwich/NEWS">change log</a> of version 2.40</p>
@@ -206,6 +202,9 @@ The new function vcovBS() provides a basic (clustered) bootstrap covariance matr
     
 
     
+    <li class="next"><a href="/post/puzzle-of-conditions-in-dplyr/">Puzzle of Conditions in dplyr <span
+      aria-hidden="true">&rarr;</span></a></li>
+    
   </ul>
 </nav>
 
@@ -213,6 +212,31 @@ The new function vcovBS() provides a basic (clustered) bootstrap covariance matr
 
 <div class="article-container">
   
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-pkpqgdhgtu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</section>
+
 
 </div>
 

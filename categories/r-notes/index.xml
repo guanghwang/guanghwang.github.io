@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R Notes on Guanghua</title>
+    <link>/categories/r-notes/</link>
+    <description>Recent content in R Notes on Guanghua</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
+    <lastBuildDate>Sun, 21 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/r-notes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Puzzle of Conditions in dplyr</title>
+      <link>/post/puzzle-of-conditions-in-dplyr/</link>
+      <pubDate>Sun, 21 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/puzzle-of-conditions-in-dplyr/</guid>
+      <description>Puzzle I am not sure how do I condition on whether a value in column A appears in column B?
+I use the naive way
+value A %in% column B within a mutate function. It workers such that R would search all values in column B. What’s more, it even works within groups. However, I not sure whether it is a luck or a right way to do it?
+ Example library(dplyr, warn.</description>
+    </item>
+    
+    <item>
+      <title>Notes on the Constant Term in the Fixed Effect Model</title>
+      <link>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</link>
+      <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/notes-on-the-constant-term-in-the-fixed-effect-model/</guid>
+      <description>In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is \[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\] with the constrant \(\bar{v}\) equals to 0. Details can be found on Stata’s website.
+In R, plm package does not calculate the some whate artificial1 intercept for within models.
+ see help(“within_intercept”, package = “plm”)↩</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -129,7 +129,7 @@
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     
-    <a href="/categories/r-learning-notes">R Learning NOtes</a
+    <a href="/categories/r-notes">R notes</a
     >
     
   </span>
@@ -138,6 +138,14 @@
 
   
   
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/r">R</a
+    >
+    
+  </span>
   
   
 
@@ -188,11 +196,7 @@
 </div>
 
     <div class="article-style" itemprop="articleBody">
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>In stata, the fixed effect model(<code>xtreg y x1 x2 x3, fe</code>) report a constant term. The underline estimate is <span class="math display">\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]</span> with the constrant <span class="math inline">\(\bar{v}\)</span> equals to 0. Details can be found on <a href="http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/">Stata’s website</a>.</p>
+      <p>In stata, the fixed effect model(<code>xtreg y x1 x2 x3, fe</code>) report a constant term. The underline estimate is <span class="math display">\[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\]</span> with the constrant <span class="math inline">\(\bar{v}\)</span> equals to 0. Details can be found on <a href="http://www.stata.com/support/faqs/statistics/intercept-in-fixed-effects-model/">Stata’s website</a>.</p>
 <p>In R, <code>plm</code> package does not calculate the <code>some whate artificial</code><a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a> intercept for within models.</p>
 <div class="footnotes">
 <hr />
@@ -225,6 +229,31 @@
 
 <div class="article-container">
   
+<section id="comments">
+  <div id="disqus_thread">
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-pkpqgdhgtu" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+</section>
+
 
 </div>
 

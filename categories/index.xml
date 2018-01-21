@@ -7,7 +7,9 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2017 Guanghua Wang</copyright>
-    <atom:link href="/categories/" rel="self" type="application/rss+xml" />
+    
+	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    
     
     <item>
       <title>R</title>
@@ -21,9 +23,18 @@
     <item>
       <title>R Learning Notes</title>
       <link>/categories/r-learning-notes/</link>
-      <pubDate>Mon, 10 Jul 2017 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 09 Jul 2017 00:00:00 +0000</pubDate>
       
       <guid>/categories/r-learning-notes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R Notes</title>
+      <link>/categories/r-notes/</link>
+      <pubDate>Sun, 21 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/r-notes/</guid>
       <description></description>
     </item>
     

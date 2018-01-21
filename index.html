@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -266,6 +266,75 @@
   
   
   <h3 class="article-title" itemprop="name">
+    <a href="/post/puzzle-of-conditions-in-dplyr/" itemprop="url">Puzzle of Conditions in dplyr</a>
+  </h3>
+  
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2018-01-21 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Sun, Jan 21, 2018
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r-notes">R notes</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/dplyr">dplyr</a
+    >, 
+    
+    <a href="/tags/columnwise">columnwise</a
+    >
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+  <div class="article-style" itemprop="articleBody">
+    
+    Puzzle I am not sure how do I condition on whether a value in column A appears in column B?
+I use the naive way
+value A %in% column B within a mutate function. It workers such that R would search all values in column B. What’s more, it even works within groups. However, I not sure whether it is a luck or a right way to do it?
+ Example library(dplyr, warn.
+    
+  </div>
+  <p class="read-more">
+    <a href="/post/puzzle-of-conditions-in-dplyr/" class="btn btn-primary btn-outline">
+      CONTINUE READING
+    </a>
+  </p>
+</div>
+
+      
+        
+        
+
+
+<div class="article-list-item" itemscope itemprop="blogPost">
+  
+  
+  <h3 class="article-title" itemprop="name">
     <a href="/post/cluster-standard-error-using-r/" itemprop="url">Cluster Standard Error Using R</a>
   </h3>
   
@@ -344,11 +413,7 @@ Here is the change log of version 2.
 
   <div class="article-style" itemprop="articleBody">
     
-    <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>Rstudio provides <code>view()</code> function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by <strong>100</strong> in the view panel.</p>
+    <p>Rstudio provides <code>view()</code> function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by <strong>100</strong> in the view panel.</p>
 <p>The office introduction of <code>View()</code>.<a href="https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer">link</a></p>
 
     
@@ -397,11 +462,7 @@ Here is the change log of version 2.
 
   <div class="article-style" itemprop="articleBody">
     
-    <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>Don’t use the same for the data.frame and variables in it.</p>
+    <p>Don’t use the same for the data.frame and variables in it.</p>
 <pre class="r"><code>library(data.table)</code></pre>
 <pre class="r"><code>a &lt;- data.table(a = c(1,2,3,1,2,3), b = c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;, &quot;b&quot;,&quot;a&quot;, &quot;b&quot;))</code></pre>
 <pre class="r"><code>b &lt;- a[b == &quot;b&quot;]</code></pre>
@@ -445,7 +506,7 @@ Here is the change log of version 2.
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     
-    <a href="/categories/r-learning-notes">R Learning NOtes</a
+    <a href="/categories/r-notes">R notes</a
     >
     
   </span>
@@ -454,6 +515,14 @@ Here is the change log of version 2.
 
   
   
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/r">R</a
+    >
+    
+  </span>
   
   
 
@@ -470,69 +539,6 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
   </div>
   <p class="read-more">
     <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" class="btn btn-primary btn-outline">
-      CONTINUE READING
-    </a>
-  </p>
-</div>
-
-      
-        
-        
-
-
-<div class="article-list-item" itemscope itemprop="blogPost">
-  
-  
-  <h3 class="article-title" itemprop="name">
-    <a href="/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/" itemprop="url">Least Square Dummy Variable Regression V.S. Fixed Effect Model</a>
-  </h3>
-  
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2017-07-09 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Sun, Jul 9, 2017
-    </time>
-  </span>
-
-  
-  
-  
-  <span class="article-categories">
-    <i class="fa fa-folder"></i>
-    
-    <a href="/categories/r-learning-notes">R Learning Notes</a
-    >
-    
-  </span>
-  
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/r-regression">R regression</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-  <div class="article-style" itemprop="articleBody">
-    
-    <p>The fixed effect model is much faster than LSDV.</p>
-    
-  </div>
-  <p class="read-more">
-    <a href="/post/least-square-dummy-variable-regression-v-s-fixed-effect-model/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>
@@ -585,15 +591,15 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
   
   
   <h3 class="article-title" itemprop="name">
-    <a href="/post/2017-02-17-set-up-github-pages/" itemprop="url">Hosting pages on Github using Rmarkdown and Hugo</a>
+    <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" itemprop="url">Notes on the Constant Term in the Fixed Effect Model</a>
   </h3>
   
 
 <div class="article-metadata">
 
   <span class="article-date">
-    <time datetime="2017-02-18 20:50:00 &#43;0000 UTC" itemprop="datePublished">
-      Sat, Feb 18, 2017
+    <time datetime="2017-07-10 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Mon, Jul 10, 2017
     </time>
   </span>
 
@@ -603,7 +609,7 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     
-    <a href="/categories/tech">Tech</a
+    <a href="/categories/r-notes">R notes</a
     >
     
   </span>
@@ -617,18 +623,6 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
     <i class="fa fa-tags"></i>
     
     <a href="/tags/r">R</a
-    >, 
-    
-    <a href="/tags/r-markdown">R Markdown</a
-    >, 
-    
-    <a href="/tags/r-blogdown">R Blogdown</a
-    >, 
-    
-    <a href="/tags/hugo">Hugo</a
-    >, 
-    
-    <a href="/tags/github">github</a
     >
     
   </span>
@@ -641,11 +635,13 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
 
   <div class="article-style" itemprop="articleBody">
     
-    <p>My personal website is created by R package <code>blogdown</code> and <code>Hugo</code> and is hosted on Github. This page summarise my steps to create this site.</p>
+    In stata, the fixed effect model(xtreg y x1 x2 x3, fe) report a constant term. The underline estimate is \[y_{it} - \bar{yr} + \bar{\bar{y}} = a + (x_{it} - \bar{x_{i}} + \bar\bar{{x}})) \alpha + (\epsilon_it - \bar{e_i} + \bar{v)\] with the constrant \(\bar{v}\) equals to 0. Details can be found on Stata’s website.
+In R, plm package does not calculate the some whate artificial1 intercept for within models.
+ see help(“within_intercept”, package = “plm”)↩
     
   </div>
   <p class="read-more">
-    <a href="/post/2017-02-17-set-up-github-pages/" class="btn btn-primary btn-outline">
+    <a href="/post/notes-on-the-constant-term-in-the-fixed-effect-model/" class="btn btn-primary btn-outline">
       CONTINUE READING
     </a>
   </p>

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.24.1" />
+  <meta name="generator" content="Hugo 0.33" />
   <meta name="author" content="Guanghua Wang">
   <meta name="description" content="Ph.D Candidate in Economcis">
 
@@ -114,6 +114,62 @@
   
   <div>
     
+    <h2><a href="/post/puzzle-of-conditions-in-dplyr/">Puzzle of Conditions in dplyr</a></h2>
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    <time datetime="2018-01-21 00:00:00 &#43;0000 UTC" itemprop="datePublished">
+      Sun, Jan 21, 2018
+    </time>
+  </span>
+
+  
+  
+  
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/r-notes">R notes</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/dplyr">dplyr</a
+    >, 
+    
+    <a href="/tags/columnwise">columnwise</a
+    >
+    
+  </span>
+  
+  
+
+  
+
+</div>
+
+    <div class="article-style"><p>
+      
+      Puzzle I am not sure how do I condition on whether a value in column A appears in column B?
+I use the naive way
+value A %in% column B within a mutate function. It workers such that R would search all values in column B. What’s more, it even works within groups. However, I not sure whether it is a luck or a right way to do it?
+ Example library(dplyr, warn.
+      
+    </p></div>
+  </div>
+  
+  <div>
+    
     <h2><a href="/post/cluster-standard-error-using-r/">Cluster Standard Error Using R</a></h2>
     
 
@@ -178,11 +234,7 @@ Here is the change log of version 2.
 
     <div class="article-style"><p>
       
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>Rstudio provides <code>view()</code> function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by <strong>100</strong> in the view panel.</p>
+      <p>Rstudio provides <code>view()</code> function. However, it has some restrictions. It slows down significantly as the nunber of rows increases. In addition, the number of rows are capped by <strong>100</strong> in the view panel.</p>
 <p>The office introduction of <code>View()</code>.<a href="https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer">link</a></p>
 
       
@@ -218,11 +270,7 @@ Here is the change log of version 2.
 
     <div class="article-style"><p>
       
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p>Don’t use the same for the data.frame and variables in it.</p>
+      <p>Don’t use the same for the data.frame and variables in it.</p>
 <pre class="r"><code>library(data.table)</code></pre>
 <pre class="r"><code>a &lt;- data.table(a = c(1,2,3,1,2,3), b = c(&quot;a&quot;, &quot;b&quot;, &quot;a&quot;, &quot;b&quot;,&quot;a&quot;, &quot;b&quot;))</code></pre>
 <pre class="r"><code>b &lt;- a[b == &quot;b&quot;]</code></pre>
@@ -253,7 +301,7 @@ Here is the change log of version 2.
   <span class="article-categories">
     <i class="fa fa-folder"></i>
     
-    <a href="/categories/r-learning-notes">R Learning NOtes</a
+    <a href="/categories/r-notes">R notes</a
     >
     
   </span>
@@ -262,6 +310,14 @@ Here is the change log of version 2.
 
   
   
+  
+  <span class="article-tags">
+    <i class="fa fa-tags"></i>
+    
+    <a href="/tags/r">R</a
+    >
+    
+  </span>
   
   
 
@@ -491,11 +547,7 @@ In R, plm package does not calculate the some whate artificial1 intercept for wi
 
     <div class="article-style"><p>
       
-      <!-- BLOGDOWN-BODY-BEFORE -->
-
-<!-- /BLOGDOWN-BODY-BEFORE -->
-
-<p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
+      <p><code>base::ifelse</code> returns <code>NA</code> to the logical type <code>NA</code>. It makes data manipulation problematic when we generate a new variable by <code>ifelse</code> from the existing varialbes with <code>NA</code>s. The following example gives an idea how the class of <code>ifelse</code> resutls changes.</p>
 <pre class="r"><code>test_fn &lt;- function(x){
   ifelse(x &gt; 0,
          &quot;Positive&quot;,
@@ -520,48 +572,6 @@ class(test_fn2(1))</code></pre>
 <pre class="r"><code>class(test_fn2(NA))</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
 
-      
-    </p></div>
-  </div>
-  
-  <div>
-    
-    <h2><a href="/post/getting-started/">Getting started with the Academic framework for Hugo</a></h2>
-    
-
-<div class="article-metadata">
-
-  <span class="article-date">
-    <time datetime="2016-04-20 12:00:00 &#43;0000 UTC" itemprop="datePublished">
-      Wed, Apr 20, 2016
-    </time>
-  </span>
-
-  
-
-  
-  
-  
-  <span class="article-tags">
-    <i class="fa fa-tags"></i>
-    
-    <a href="/tags/academic">academic</a
-    >, 
-    
-    <a href="/tags/hugo">hugo</a
-    >
-    
-  </span>
-  
-  
-
-  
-
-</div>
-
-    <div class="article-style"><p>
-      
-      Create a beautifully simple personal or academic website in under 10 minutes.
       
     </p></div>
   </div>
